@@ -17,15 +17,6 @@
       </li>
     </ul>
 
-    <p class="card-hint">
-      {{
-        $gettext(
-          'Clients that support auto-discovery only need %{origin} — it is served via %{caldav} and %{carddav}.',
-          { origin, caldav: wellKnownCaldav, carddav: wellKnownCarddav }
-        )
-      }}
-    </p>
-
     <div class="connect-credentials">
       <p class="card-hint">
         {{
@@ -93,8 +84,6 @@ const { showMessage, showErrorMessage } = useMessages()
 
 const origin = window.location.origin
 const host = window.location.host
-const wellKnownCaldav = `${origin}/.well-known/caldav`
-const wellKnownCarddav = `${origin}/.well-known/carddav`
 
 /**
  * OpenCloud's account page exposes app tokens as an account extension; the
@@ -134,7 +123,10 @@ interface ConnectRow {
 }
 
 const rows = computed<ConnectRow[]>(() => {
+  // Apps with auto-discovery only need the server (it answers /.well-known/caldav
+  // and /.well-known/carddav); the two URLs are for apps that ask for them.
   const list: ConnectRow[] = [
+    { key: 'server', label: $gettext('Server'), value: origin },
     { key: 'caldav', label: $gettext('CalDAV URL'), value: caldavUrl },
     { key: 'carddav', label: $gettext('CardDAV URL'), value: carddavUrl }
   ]
@@ -254,19 +246,19 @@ async function copy(row: ConnectRow) {
 .connect-link {
   font-size: 0.875rem;
   font-weight: 500;
-  color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
   text-decoration: underline;
   text-underline-offset: 2px;
   align-self: flex-start;
 }
 
 .connect-link:hover {
-  color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
   text-decoration-thickness: 2px;
 }
 
 .connect-link:focus-visible {
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: 2px;
   border-radius: 2px;
 }

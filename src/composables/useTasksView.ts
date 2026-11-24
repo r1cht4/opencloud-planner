@@ -1,7 +1,7 @@
 /**
  * useTasksView – the Tasks page's state + DAV logic.
  *
- * Extracted from `views/Tasks.vue`: the filter chips, quick-add, grouping by
+ * Extracted from `views/Tasks.vue`: the filter chips, grouping by
  * calendar, overdue/priority helpers, the `?open=<href>` deep link and the
  * create/update/complete/delete writes with ETag-conflict handling.
  *
@@ -60,8 +60,6 @@ export interface TasksViewState {
   filter: Ref<TaskFilter>
   filterOptions: Ref<Array<{ value: TaskFilter; label: string }>>
   selectedCalendarUrl: Ref<string>
-  quickAddTitle: Ref<string>
-  quickAddInput: Ref<HTMLInputElement | null>
   initialized: Ref<boolean>
   showDialog: Ref<boolean>
   editMode: Ref<boolean>
@@ -70,7 +68,6 @@ export interface TasksViewState {
   groups: Ref<TaskGroup[]>
   defaultTaskCalendarUrl: Ref<string>
   loadInitial: () => Promise<void>
-  quickAdd: () => Promise<void>
   isCompleted: (task: Task) => boolean
   isDone: (task: Task) => boolean
   isOverdue: (task: Task) => boolean
@@ -132,8 +129,6 @@ export function useTasksView(): TasksViewState {
    */
   const filter = ref<TaskFilter>(settings.value.tasks.showCompleted ? 'all' : 'open')
   const selectedCalendarUrl = ref('')
-  const quickAddTitle = ref('')
-  const quickAddInput = ref<HTMLInputElement | null>(null)
   const initialized = ref(false)
   const showDialog = ref(false)
   const editMode = ref(false)
@@ -250,34 +245,6 @@ export function useTasksView(): TasksViewState {
     await fetchTasks()
     initialized.value = true
     openItemFromQuery()
-  }
-
-  async function quickAdd() {
-    const title = quickAddTitle.value.trim()
-    const calendar = selectedCalendar.value
-    if (!title || !calendar) return
-
-    const created = await createTask(calendar.url, {
-      id: crypto.randomUUID(),
-      title,
-      priority: 0,
-      status: 'NEEDS-ACTION',
-      percentComplete: 0
-    })
-
-    if (created) {
-      quickAddTitle.value = ''
-      // New tasks are open — make sure the list they land in shows them.
-      if (filter.value === 'completed') filter.value = 'open'
-      showMessage({ title: $gettext('Task created') })
-      quickAddInput.value?.focus()
-      // A due-date reminder must be armed now, not at the next 15-minute tick.
-      refreshReminders()
-    } else {
-      showErrorMessage({
-        title: mapDavError(error.value, $gettext) ?? $gettext('Failed to create task')
-      })
-    }
   }
 
   async function toggleComplete(task: Task) {
@@ -442,8 +409,6 @@ export function useTasksView(): TasksViewState {
     filter,
     filterOptions,
     selectedCalendarUrl,
-    quickAddTitle,
-    quickAddInput,
     initialized,
     showDialog,
     editMode,
@@ -452,7 +417,6 @@ export function useTasksView(): TasksViewState {
     groups,
     defaultTaskCalendarUrl,
     loadInitial,
-    quickAdd,
     isCompleted,
     isDone,
     isOverdue,

@@ -64,12 +64,7 @@
           <oc-button appearance="outline" :disabled="busy" @click="close">
             {{ $gettext('Cancel') }}
           </oc-button>
-          <oc-button
-            appearance="filled"
-            color-role="primary"
-            :disabled="busy || !removableCount"
-            @click="confirmDelete"
-          >
+          <oc-button appearance="filled" :disabled="busy || !removableCount" @click="confirmDelete">
             {{ $gettext('Delete duplicates') }}
           </oc-button>
         </div>

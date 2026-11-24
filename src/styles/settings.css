@@ -24,7 +24,7 @@
 .settings-select:focus,
 .settings-time-input:focus {
   outline: none;
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 
 .settings-select:disabled,
@@ -37,7 +37,7 @@
 .settings-checkbox {
   width: 1.125rem;
   height: 1.125rem;
-  accent-color: var(--oc-role-primary, #00677f);
+  accent-color: var(--oc-role-secondary, #20434f);
 }
 
 /* A list of checkboxes inside a row's control (default reminders). */
@@ -72,6 +72,11 @@
 .settings-blocks--column {
   flex-direction: column;
   align-items: stretch;
+}
+
+/* Stacked, the 220px flex basis of a block would become its height. */
+.settings-blocks--column > .settings-block {
+  flex: 0 0 auto;
 }
 
 .settings-block {
@@ -171,6 +176,13 @@
   width: 100%;
   min-width: 0;
 }
+
+/* A row whose trailing control is hidden (the Navigation row outside
+   Files-sidebar mode): no second grid column, so the select grows to the full
+   control width and ends where the plain selects of the rows above end. */
+.settings-inline--solo {
+  grid-template-columns: minmax(0, 1fr);
+}
 .settings-inline > .settings-checkbox {
   justify-self: end;
   align-self: center;
@@ -209,7 +221,7 @@
 
 .settings-move:hover:not(:disabled),
 .settings-move:focus-visible {
-  color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
 }
 
 .settings-move:disabled {
@@ -243,7 +255,7 @@
 }
 .settings-gear:hover,
 .settings-gear:focus-visible {
-  color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
 }
 
 @media (max-width: 600px) {

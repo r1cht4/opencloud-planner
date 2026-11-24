@@ -8,14 +8,19 @@ import { describe, expect, it } from 'vitest'
 
 import {
   computeLoadedRange,
+  escapeHtml,
+  eventBlockHtml,
+  eventDensityMode,
   formatMoveDetails,
   getCalendarColor,
   isBirthdayEvent,
   isTimeGridView,
   mergeRefreshedEvents,
-  stackThreshold,
+  ONE_LINE_MIN_HEIGHT,
+  STACK_THRESHOLD,
   tagEventElement,
-  toEcEvents
+  toEcEvents,
+  TWO_LINE_MIN_HEIGHT
 } from '../../src/composables/calendarViewUtils'
 import type { CalendarCollection, CalendarEvent } from '../../src/types'
 
@@ -61,10 +66,12 @@ describe('isBirthdayEvent', () => {
   })
 })
 
-describe('stackThreshold', () => {
-  it('collapses earlier on narrow viewports', () => {
-    expect(stackThreshold(true)).toBe(2)
-    expect(stackThreshold(false)).toBe(3)
+describe('STACK_THRESHOLD', () => {
+  it('collapses overlaps of two events into the stack on every width', () => {
+    // Two overlapping events used to split the day into narrow side-by-side
+    // columns on desktop (threshold 3); now they get the same "+N" block as
+    // denser clusters, on narrow and wide viewports alike.
+    expect(STACK_THRESHOLD).toBe(2)
   })
 })
 
@@ -183,26 +190,55 @@ describe('computeLoadedRange', () => {
   })
 })
 
-describe('grid density tagging', () => {
-  it('only tags time-grid events that render a time line', () => {
+describe('grid density modes (height → content)', () => {
+  it('picks the mode from the measured block height', () => {
+    // At the grid's default 48 px/hour: 15 min = 12 px, 30 min = 24 px,
+    // 60 min = 48 px.
+    expect(eventDensityMode(48)).toBe('two-line')
+    expect(eventDensityMode(TWO_LINE_MIN_HEIGHT)).toBe('two-line')
+    expect(eventDensityMode(TWO_LINE_MIN_HEIGHT - 1)).toBe('one-line')
+    expect(eventDensityMode(24)).toBe('one-line')
+    expect(eventDensityMode(ONE_LINE_MIN_HEIGHT)).toBe('one-line')
+    expect(eventDensityMode(ONE_LINE_MIN_HEIGHT - 1)).toBe('block')
+    expect(eventDensityMode(12)).toBe('block')
+    expect(eventDensityMode(0)).toBe('block')
+  })
+
+  it('tags a time-grid event with its mode class after measuring', () => {
     const el = document.createElement('div')
     el.className = 'ec-event'
-    // No .ec-event-time → nothing to hide.
-    tagEventElement(el, true)
-    expect(el.classList.contains('ec-event--compact')).toBe(false)
-
     const time = document.createElement('span')
     time.className = 'ec-event-time'
     el.appendChild(time)
-    // happy-dom reports clientHeight 0 → "tiny" slot.
+
+    const setHeight = (px: number) =>
+      Object.defineProperty(el, 'clientHeight', { value: px, configurable: true })
+
+    setHeight(48)
     tagEventElement(el, true)
-    expect(el.classList.contains('ec-event--compact')).toBe(true)
-    expect(el.classList.contains('ec-event--tiny')).toBe(true)
+    expect(el.className).toBe('ec-event ec-event--two-line')
+
+    setHeight(24)
+    tagEventElement(el, true)
+    expect(el.classList.contains('ec-event--two-line')).toBe(false)
+    expect(el.classList.contains('ec-event--one-line')).toBe(true)
+
+    // happy-dom reports clientHeight 0 by default → block (no text).
+    setHeight(0)
+    tagEventElement(el, true)
+    expect(el.classList.contains('ec-event--one-line')).toBe(false)
+    expect(el.classList.contains('ec-event--block')).toBe(true)
 
     // Leaving the time grid clears the tags again.
     tagEventElement(el, false)
-    expect(el.classList.contains('ec-event--compact')).toBe(false)
-    expect(el.classList.contains('ec-event--tiny')).toBe(false)
+    expect(el.className).toBe('ec-event')
+  })
+
+  it('does not tag events without a time line (all-day) or outside the time grid', () => {
+    const el = document.createElement('div')
+    el.className = 'ec-event'
+    tagEventElement(el, true)
+    expect(el.className).toBe('ec-event')
   })
 
   it('recognises time-grid views', () => {
@@ -210,6 +246,38 @@ describe('grid density tagging', () => {
     expect(isTimeGridView({ type: 'dayGridMonth' })).toBe(false)
     expect(isTimeGridView(null)).toBe(false)
     expect(isTimeGridView({})).toBe(false)
+  })
+})
+
+describe('eventBlockHtml (eventContent hook)', () => {
+  it('renders the range time, the start-only time and the title', () => {
+    const html = eventBlockHtml('Team standup', '9:30 – 9:45', '9:30')
+    expect(html).toContain('ec-event-time--range">9:30 – 9:45<')
+    expect(html).toContain('ec-event-time--start">9:30<')
+    expect(html).toContain('ec-event-title">Team standup<')
+  })
+
+  it('escapes user-controlled text (title may contain markup)', () => {
+    const html = eventBlockHtml('<img src=x onerror=alert(1)>', '9:30 – 9:45', '9:30')
+    expect(html).not.toContain('<img')
+    expect(html).toContain('&lt;img src=x onerror=alert(1)&gt;')
+    expect(escapeHtml(`a"b'c&d<e>f`)).toBe('a&quot;b&#39;c&amp;d&lt;e&gt;f')
+  })
+})
+
+describe('toEcEvents with the stack threshold', () => {
+  it('collapses two overlapping events into the "+N" stack (regression: side-by-side columns)', () => {
+    const { events, clusters } = toEcEvents(
+      [
+        ev('a', '2026-11-24 09:00', '2026-11-24 10:00'),
+        ev('b', '2026-11-24 09:30', '2026-11-24 10:30')
+      ],
+      { calendars, visible: new Set(['cal-1']), threshold: STACK_THRESHOLD }
+    )
+    expect(events).toHaveLength(1)
+    expect(events[0].id).toMatch(/^stack:/)
+    expect(events[0].title).toBe('Event a +1')
+    expect(clusters.get(events[0].id)?.map((e) => e.id)).toEqual(['a', 'b'])
   })
 })
 

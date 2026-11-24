@@ -269,5 +269,11 @@ watch(error, (message) => {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items: start;
   }
+
+  /* A collapsed card (Data → Clean up) takes the height of its row neighbour
+     (Backup & restore); opened, it keeps its natural height. */
+  .settings-panel > :deep(.settings-section--collapsible:not([open])) {
+    align-self: stretch;
+  }
 }
 </style>

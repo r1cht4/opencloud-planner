@@ -1,6 +1,6 @@
 {
   "name": "opencloud-planner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "displayName": "Planner",
   "description": "Planner — calendar, contacts and tasks for OpenCloud, backed by CalDAV/CardDAV (Radicale).",
   "keywords": [

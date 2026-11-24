@@ -132,9 +132,7 @@
             <oc-button appearance="outline" @click="closeMergeDialog">{{
               $gettext('Cancel')
             }}</oc-button>
-            <oc-button appearance="filled" color-role="primary" @click="confirmMerge">{{
-              $gettext('Merge')
-            }}</oc-button>
+            <oc-button appearance="filled" @click="confirmMerge">{{ $gettext('Merge') }}</oc-button>
           </div>
         </div>
       </div>
@@ -275,7 +273,7 @@ const {
   border-color: var(--oc-role-outline, #6f797d);
 }
 .merge-card--selected {
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
   background: var(--oc-role-primary-container, #b7eaff);
 }
 .merge-card-name {

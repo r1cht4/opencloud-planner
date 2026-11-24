@@ -114,12 +114,7 @@
             <oc-button appearance="outline" :disabled="busy" @click="close">
               {{ $gettext('Cancel') }}
             </oc-button>
-            <oc-button
-              appearance="filled"
-              color-role="primary"
-              :disabled="busy || !canImport"
-              @click="submitImport"
-            >
+            <oc-button appearance="filled" :disabled="busy || !canImport" @click="submitImport">
               {{ busy ? $gettext('Importing…') : $gettext('Import') }}
             </oc-button>
           </div>
@@ -150,12 +145,7 @@
           <div class="modal-actions">
             <div class="spacer" />
             <oc-button appearance="outline" @click="close">{{ $gettext('Cancel') }}</oc-button>
-            <oc-button
-              appearance="filled"
-              color-role="primary"
-              :disabled="!props.contacts.length"
-              @click="submitExport"
-            >
+            <oc-button appearance="filled" :disabled="!props.contacts.length" @click="submitExport">
               {{ $gettext('Export') }}
             </oc-button>
           </div>

@@ -8,6 +8,17 @@
         </div>
 
         <div class="toolbar-actions">
+          <oc-button
+            appearance="filled"
+            :disabled="calendars.length === 0"
+            @click="openCreateDialog"
+          >
+            <oc-icon name="add" size="small" />
+            <span>{{ $gettext('New task') }}</span>
+          </oc-button>
+        </div>
+
+        <div class="toolbar-filter">
           <div class="filter-group" role="group" :aria-label="$gettext('Filter')">
             <button
               v-for="option in filterOptions"
@@ -21,50 +32,8 @@
               {{ option.label }}
             </button>
           </div>
-
-          <oc-button
-            appearance="filled"
-            color-role="primary"
-            :disabled="calendars.length === 0"
-            @click="openCreateDialog"
-          >
-            <oc-icon name="add" size="small" />
-            <span>{{ $gettext('New task') }}</span>
-          </oc-button>
         </div>
       </div>
-
-      <form class="quick-add" @submit.prevent="quickAdd">
-        <label class="form-label quick-add-label" for="quick-add-input">
-          {{ $gettext('New task') }}
-        </label>
-        <input
-          id="quick-add-input"
-          ref="quickAddInput"
-          v-model="quickAddTitle"
-          type="text"
-          class="form-input quick-add-input"
-          :placeholder="$gettext('Add a task…')"
-          :disabled="calendars.length === 0"
-        />
-        <select
-          v-if="calendars.length > 1"
-          v-model="selectedCalendarUrl"
-          class="form-select quick-add-calendar"
-          :aria-label="$gettext('Calendar')"
-        >
-          <option v-for="cal in calendars" :key="cal.url" :value="cal.url">
-            {{ cal.displayName }}
-          </option>
-        </select>
-        <oc-button
-          appearance="outline"
-          submit="submit"
-          :disabled="!quickAddTitle.trim() || !selectedCalendarUrl"
-        >
-          {{ $gettext('Add') }}
-        </oc-button>
-      </form>
 
       <div v-if="!initialized && loading" class="empty-state">
         <oc-spinner size="medium" />
@@ -181,7 +150,7 @@
 /**
  * TasksView – page shell for the tasks app.
  *
- * The page is wiring-only: the list/quick-add/write logic lives in
+ * The page is wiring-only: the list/write logic lives in
  * `useTasksView`, the task form dialog in `components/tasks/TaskDialog.vue`.
  * The rendered DOM, classes and e2e selectors are unchanged.
  */
@@ -202,9 +171,6 @@ const {
   errorMessage,
   filter,
   filterOptions,
-  selectedCalendarUrl,
-  quickAddTitle,
-  quickAddInput,
   initialized,
   showDialog,
   editMode,
@@ -213,7 +179,6 @@ const {
   groups,
   defaultTaskCalendarUrl,
   loadInitial,
-  quickAdd,
   isCompleted,
   isDone,
   isOverdue,
@@ -251,16 +216,24 @@ onMounted(loadInitial)
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-basis: 100%;
 }
 .page-title {
   font-size: 1.25rem;
   font-weight: 600;
 }
+/* Row 2: the switch left, "New task" right (DOM keeps the button first for the
+   tab order). */
+.toolbar-filter {
+  order: 1;
+}
+
 .toolbar-actions {
   display: flex;
   align-items: center;
   gap: 12px;
-  flex-wrap: wrap;
+  order: 2;
+  margin-inline-start: auto;
 }
 
 .filter-group {
@@ -286,28 +259,8 @@ onMounted(loadInitial)
   font-weight: 600;
 }
 .filter-chip:focus-visible {
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: -2px;
-}
-
-.quick-add {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-.quick-add-label {
-  display: block;
-  flex-basis: 100%;
-  margin-bottom: 0;
-}
-.quick-add-input {
-  flex: 1;
-  min-width: 200px;
-}
-.quick-add-calendar {
-  width: auto;
-  max-width: 220px;
 }
 
 .form-label {
@@ -329,7 +282,7 @@ onMounted(loadInitial)
 }
 .form-input:focus {
   outline: none;
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 .form-select {
   border: 1px solid var(--oc-role-outline-variant, #bfc8cc);
@@ -343,7 +296,7 @@ onMounted(loadInitial)
 }
 .form-select:focus {
   outline: none;
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 
 .empty-state {
@@ -445,11 +398,11 @@ onMounted(loadInitial)
   width: 18px;
   height: 18px;
   flex-shrink: 0;
-  accent-color: var(--oc-role-primary, #00677f);
+  accent-color: var(--oc-role-secondary, #20434f);
   cursor: pointer;
 }
 .task-checkbox:focus-visible {
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: 2px;
 }
 
@@ -469,7 +422,7 @@ onMounted(loadInitial)
   cursor: pointer;
 }
 .task-main:focus-visible {
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: 2px;
   border-radius: 4px;
 }
@@ -530,17 +483,13 @@ onMounted(loadInitial)
   color: var(--oc-role-error, #ba1a1a);
 }
 .task-delete:focus-visible {
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: 2px;
 }
 
 @media (max-width: 640px) {
   .tasks-page {
     padding: 8px;
-  }
-  .quick-add-calendar {
-    max-width: 100%;
-    width: 100%;
   }
 }
 </style>

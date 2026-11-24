@@ -5,9 +5,7 @@
         <div class="page-title-row">
           <h1 class="page-title">{{ $gettext('Contacts') }}</h1>
           <PageHeaderActions />
-        </div>
 
-        <div class="toolbar-actions">
           <oc-select
             v-if="addressBooks.length > 1"
             :model-value="selectedAddressBook"
@@ -19,21 +17,24 @@
             class="addressbook-select"
             @update:model-value="onAddressBookChange"
           />
+        </div>
 
-          <oc-button appearance="filled" color-role="primary" @click="openCreateDialog">
+        <div class="search-wrap">
+          <oc-text-input
+            v-model="searchQuery"
+            :label="$gettext('Search contacts')"
+            :placeholder="$gettext('Search contacts')"
+            :clear-button-enabled="true"
+            :clear-button-accessible-label="$gettext('Clear search')"
+          />
+        </div>
+
+        <div class="toolbar-actions">
+          <oc-button appearance="filled" @click="openCreateDialog">
             <oc-icon name="add" size="small" />
             <span>{{ $gettext('New contact') }}</span>
           </oc-button>
         </div>
-      </div>
-
-      <div class="search-wrap">
-        <oc-text-input
-          v-model="searchQuery"
-          :label="$gettext('Search contacts')"
-          :clear-button-enabled="true"
-          :clear-button-accessible-label="$gettext('Clear search')"
-        />
       </div>
 
       <div v-if="!initialized && loading" class="empty-state">
@@ -205,21 +206,42 @@ onMounted(loadInitial)
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-basis: 100%;
 }
 .page-title {
   font-size: 1.25rem;
   font-weight: 600;
 }
+/* Row 2: search as wide as the contact list below it, "New contact" at the far
+   right. */
 .toolbar-actions {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-inline-start: auto;
 }
 .addressbook-select {
   /* Fixed width: vue-select sizes to the selected text, which it hides while open,
      so a content-sized select shrank on click. */
   width: 240px;
   flex: none;
+  /* Row 1, far right (the title row spans the toolbar). */
+  margin-inline-start: auto;
+}
+
+/* Same height and line as the "New contact" button next to it (the toggle is
+   3px taller and sat a pixel too high). */
+.addressbook-select :deep(.vs__dropdown-toggle) {
+  position: relative;
+  top: 1px;
+  height: 33px;
+  min-height: 0;
+  box-sizing: border-box;
+}
+
+.toolbar-actions > .oc-button {
+  height: 33px;
+  box-sizing: border-box;
 }
 
 .file-input-hidden {
@@ -255,8 +277,29 @@ onMounted(loadInitial)
   font-size: 0.875rem;
 }
 
+.search-wrap {
+  width: 320px;
+}
+
 .search-wrap :deep(.oc-text-input) {
   margin-bottom: 0;
+}
+
+/* The label stays for screen readers; the placeholder says the same on screen. */
+.search-wrap :deep(label) {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+.search-wrap :deep(input) {
+  height: 33px;
+  box-sizing: border-box;
+  /* Same corners as the contact list below. */
+  border-radius: 12px;
 }
 
 .split-view {
@@ -359,6 +402,9 @@ onMounted(loadInitial)
   .is-contact-detail-open .search-wrap {
     display: none;
   }
+  .search-wrap {
+    width: 100%;
+  }
   .contact-list {
     width: 100%;
     height: 100%;
@@ -403,6 +449,9 @@ onMounted(loadInitial)
 
   /* 4. Prevent toolbar-actions from overflowing narrow screens */
   .toolbar-actions {
+    flex-wrap: wrap;
+  }
+  .page-title-row {
     flex-wrap: wrap;
   }
   .addressbook-select {

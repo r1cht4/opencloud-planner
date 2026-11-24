@@ -25,7 +25,11 @@
     </SettingsSection>
 
     <!-- Rarely needed and destructive: the whole group starts collapsed. -->
-    <SettingsSection :title="$gettext('Clean up')" collapsible>
+    <SettingsSection
+      :title="$gettext('Clean up')"
+      :hint="$gettext('Find duplicate events and merge duplicate contacts.')"
+      collapsible
+    >
       <div class="settings-blocks settings-blocks--column">
         <DuplicateEventsCard @deleted="emit('changed')" />
         <ContactsToolsCard part="cleanup" :refresh-key="refreshKey" @changed="emit('changed')" />

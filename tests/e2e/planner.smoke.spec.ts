@@ -315,14 +315,15 @@ test.describe('Calendar & Contacts deployed app', () => {
     const stamp = Date.now()
     const taskTitle = `E2E Task ${stamp}`
 
-    // ── Create through the quick-add input (Enter submits) ────────────────
+    // ── Create through the New task dialog (Enter submits) ────────────────
     const taskPut = await Promise.all([
       page.waitForResponse(
         (resp) => resp.request().method() === 'PUT' && resp.url().includes('/caldav/')
       ),
       (async () => {
-        await page.locator('#quick-add-input').fill(taskTitle)
-        await page.locator('#quick-add-input').press('Enter')
+        await page.getByRole('button', { name: 'New task' }).click()
+        await page.getByRole('dialog').getByLabel('Title').fill(taskTitle)
+        await page.getByRole('dialog').getByLabel('Title').press('Enter')
       })()
     ]).then(([resp]) => resp)
     expect(taskPut.status()).toBeGreaterThanOrEqual(200)

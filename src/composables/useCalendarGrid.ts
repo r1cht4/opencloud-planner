@@ -27,8 +27,15 @@ import {
   type CalendarInstance
 } from '@event-calendar/core'
 import { useClusterPopover, type ClusterPopoverState } from './useClusterPopover'
+import { useEventTooltip } from './eventTooltip'
 import { touchGridOptions, vibrateOnInteractionStart } from './calendarTouch'
-import { isTimeGridView, stackThreshold, tagEventElement, toEcEvents } from './calendarViewUtils'
+import {
+  eventBlockHtml,
+  isTimeGridView,
+  STACK_THRESHOLD,
+  tagEventElement,
+  toEcEvents
+} from './calendarViewUtils'
 import {
   applyCalendarSettingsOptions,
   type CalendarSettingsOptions
@@ -44,14 +51,23 @@ import type { CalendarCollection, CalendarEvent } from '../types'
 /** The grid's event object inside a callback. */
 interface EcEventPayload {
   id: string
+  title: string
   start: Date | string
   end: Date | string
   allDay?: boolean
 }
 
+/** `eventContent` hook: the block's text pieces and the current view. */
+interface EcEventContentInfo {
+  event: EcEventPayload
+  timeText: string
+  view?: { type?: string }
+}
+
 interface EcEventInfo {
   event: EcEventPayload
   el: HTMLElement
+  timeText?: string
   view?: { type?: string }
   revert?: () => void
 }
@@ -96,7 +112,6 @@ export interface CalendarGridCallbacks {
   getCalendars: () => CalendarCollection[]
   getVisible: () => Set<string>
   getEvents: () => CalendarEvent[]
-  isNarrow: () => boolean
   openEvent: (event: CalendarEvent) => void
   onEventDrag: (drag: EventDragRequest) => void
   onDateClick: (start: Date, end: Date, allDay: boolean) => void
@@ -111,7 +126,6 @@ export interface CalendarGrid {
   cancelStackClose: () => void
   scheduleStackClose: () => void
   hideStackPopover: () => void
-  isNarrow: () => boolean
   initCalendar: (initialEvents: CalendarEvent[]) => void
   /** Push a settings change into the running grid (diffed, no re-mount). */
   applyViewOptions: (next: CalendarSettingsOptions) => void
@@ -135,6 +149,9 @@ export function useCalendarGrid(cb: CalendarGridCallbacks): CalendarGrid {
   const calendarEl = ref<HTMLElement | null>(null)
   let ec: CalendarInstance | null = null
   let appliedViewOptions: CalendarSettingsOptions | null = null
+  /** Last rendered view, so a container resize can re-measure the blocks. */
+  let lastView: { type?: string } | undefined
+  let resizeObserver: ResizeObserver | null = null
 
   const {
     clusters: stackedClusters,
@@ -147,6 +164,10 @@ export function useCalendarGrid(cb: CalendarGridCallbacks): CalendarGrid {
     hide: hideStackPopover
   } = useClusterPopover()
 
+  // Hover/keyboard-focus details card for the event blocks (timed events,
+  // incl. the ones too short for text). Created at setup time (inject).
+  const tooltip = useEventTooltip(cb.getLocale)
+
   const toolbarMq = window.matchMedia('(max-width: 640px)')
 
   function applyHeaderToolbar() {
@@ -158,18 +179,49 @@ export function useCalendarGrid(cb: CalendarGridCallbacks): CalendarGrid {
     const { events: mapped, clusters } = toEcEvents(list, {
       calendars: cb.getCalendars(),
       visible: cb.getVisible(),
-      threshold: stackThreshold(cb.isNarrow())
+      threshold: STACK_THRESHOLD
     })
     setStackedClusters(clusters)
     return mapped
   }
 
   function applyEventDensity(view: { type?: string } | null | undefined) {
+    lastView = view ?? lastView
     const root = calendarEl.value
     if (!root) return
     const timeGrid = isTimeGridView(view)
+    tooltip.hideIfDetached()
     for (const el of root.querySelectorAll<HTMLElement>('.ec-event')) {
       tagEventElement(el, timeGrid)
+    }
+  }
+
+  /** Calendar display name for the tooltip line. */
+  function calendarNameFor(event: CalendarEvent): string {
+    return cb.getCalendars().find((c) => c.url === event.calendarId)?.displayName ?? ''
+  }
+
+  /** Start-time text for the one-line event content (`9:30`). */
+  function startTimeText(start: Date | string): string {
+    const date = start instanceof Date ? start : new Date(String(start).replace(' ', 'T'))
+    try {
+      return new Intl.DateTimeFormat(cb.getLocale(), { hour: 'numeric', minute: '2-digit' }).format(
+        date
+      )
+    } catch {
+      return String(start)
+    }
+  }
+
+  /**
+   * Timed time-grid blocks render both a range time and a start-only time;
+   * the density mode (measured in `eventDidMount`) shows the one that fits.
+   * Every other view/event keeps the library's default rendering.
+   */
+  function eventContent(info: EcEventContentInfo): { html: string } | undefined {
+    if (!isTimeGridView(info.view) || info.event.allDay) return undefined
+    return {
+      html: eventBlockHtml(info.event.title, info.timeText, startTimeText(info.event.start))
     }
   }
 
@@ -180,15 +232,28 @@ export function useCalendarGrid(cb: CalendarGridCallbacks): CalendarGrid {
       ...cb.buildOptions(),
       dayMaxEvents: true,
       // Timed events that overlap share the day column equally instead of the
-      // library's default staggered/overlapping layout.
+      // library's default staggered/overlapping layout. (Overlaps of 2+ are
+      // collapsed into a "+N" stack before they reach the grid, so this only
+      // affects events spanning several days.)
       slotEventOverlap: false,
+      // Line + dot at the current time in week/day view (the library refreshes
+      // `now` every second itself).
+      nowIndicator: true,
       events: ecEvents(initialEvents),
       editable: true,
       selectable: true,
       // Touch: long press before a drag/resize/select starts, so a swipe keeps
       // scrolling. Touch-only — the mouse path never starts that timer.
       ...touchGridOptions(),
-      eventDidMount: (info: EcEventInfo) => tagEventElement(info.el, isTimeGridView(info.view)),
+      eventContent,
+      eventDidMount: (info: EcEventInfo) => {
+        tagEventElement(info.el, isTimeGridView(info.view))
+        // The synthetic "+N" blocks get the cluster popover instead.
+        if (!info.event.id.startsWith('stack:')) {
+          const occurrence = cb.getEvents().find((e) => e.id === info.event.id)
+          if (occurrence) tooltip.bind(info.el, occurrence, calendarNameFor(occurrence))
+        }
+      },
       eventAllUpdated: (info: { view?: { type?: string } }) => applyEventDensity(info.view),
       eventClick: (info: EcEventInfo) => {
         const cluster = stackedClusters.get(info.event.id)
@@ -237,6 +302,10 @@ export function useCalendarGrid(cb: CalendarGridCallbacks): CalendarGrid {
     })
     applyHeaderToolbar()
     toolbarMq.addEventListener('change', applyHeaderToolbar)
+    // One observer on the grid root: a container resize (or a font/zoom change)
+    // can change the blocks' pixel height, so re-measure the density modes.
+    resizeObserver = new ResizeObserver(() => applyEventDensity(lastView))
+    resizeObserver.observe(calendarEl.value)
   }
 
   /**
@@ -284,6 +353,9 @@ export function useCalendarGrid(cb: CalendarGridCallbacks): CalendarGrid {
 
   function destroy() {
     toolbarMq.removeEventListener('change', applyHeaderToolbar)
+    resizeObserver?.disconnect()
+    resizeObserver = null
+    tooltip.destroy()
     if (ec) {
       destroyCalendar(ec)
       ec = null
@@ -298,7 +370,6 @@ export function useCalendarGrid(cb: CalendarGridCallbacks): CalendarGrid {
     cancelStackClose,
     scheduleStackClose,
     hideStackPopover,
-    isNarrow: () => toolbarMq.matches,
     initCalendar,
     applyViewOptions,
     setEvents,

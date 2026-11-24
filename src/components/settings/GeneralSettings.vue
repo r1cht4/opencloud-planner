@@ -45,7 +45,12 @@
       :locked="isLocked('general.navigation')"
       label-for="setting-general-navigation"
     >
-      <div class="settings-inline">
+      <!-- `settings-inline--solo`: without the gear the select takes the whole
+           control width, lining up with the plain selects of the rows above. -->
+      <div
+        class="settings-inline"
+        :class="{ 'settings-inline--solo': settings.general.navigation !== 'filesSidebar' }"
+      >
         <select
           id="setting-general-navigation"
           class="settings-select"
@@ -396,12 +401,14 @@ function onToggleApp(key: AppKey, checked: boolean): void {
 // ── General: navigation mode ───────────────────────────────────────────────
 /**
  * One line explaining the selected mode: the two modes are an either/or, and the
- * hint has to fit on one line next to the label.
+ * hint has to fit on one line next to the label. The drawer-only mode gets its
+ * own hint — the app-menu row below shows the "one entry" line in that mode, and
+ * the Navigation row must not repeat it.
  */
 const navigationHint = computed(() =>
   settings.value.general.navigation === 'filesSidebar'
     ? $gettext('Calendar, Contacts and Tasks appear in the Files sidebar.')
-    : $gettext('One %{app} entry in the app menu; switch apps in the sidebar.', { app: APP_NAME })
+    : $gettext('Nothing in the Files sidebar; open the apps from the app menu.')
 )
 
 /**

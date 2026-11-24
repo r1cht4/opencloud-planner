@@ -153,7 +153,6 @@
             </oc-button>
             <oc-button
               appearance="filled"
-              color-role="primary"
               :disabled="busy || !formName.trim()"
               @click="submitDialog"
             >
@@ -536,7 +535,7 @@ function confirmDelete(kind: CollectionKind, collection: CalendarCollection | Ad
 }
 .form-input:focus {
   outline: none;
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 
 .form-field .color-input {

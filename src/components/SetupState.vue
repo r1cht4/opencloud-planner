@@ -41,12 +41,7 @@
       </ol>
 
       <div class="setup-actions">
-        <oc-button
-          appearance="filled"
-          color-role="primary"
-          :disabled="probing"
-          @click="testConnection"
-        >
+        <oc-button appearance="filled" :disabled="probing" @click="testConnection">
           <oc-spinner v-if="probing" size="small" />
           <span>{{ probing ? $gettext('Testing…') : $gettext('Test connection') }}</span>
         </oc-button>
@@ -312,7 +307,7 @@ async function testConnection() {
 
 .setup-link {
   font-size: 0.875rem;
-  color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
   text-decoration: underline;
 }
 

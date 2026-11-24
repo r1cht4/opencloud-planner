@@ -7,6 +7,29 @@ adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [1.0.1] - 2026-11-24
+
+### Changed
+
+- Calendar week and day view: event blocks show as much as their height allows (time and title,
+  one line, or just the coloured block) and every event shows its details in a tooltip on hover and
+  keyboard focus. Two overlapping events now use the same stacked block as larger overlaps instead
+  of narrow side-by-side columns. A line marks the current time.
+- Toolbars sit directly above the content: calendar chips with search, date and "New event" on the
+  right; the task filter with "New task"; the contact search (as wide as the list) with "New
+  contact", the address book in the title row. The task quick-add row is gone; "New task" opens the
+  dialog.
+- Primary buttons and selection states use OpenCloud's own colours instead of purple.
+- Settings: cards are clearly separated in dark mode, headings are spaced evenly, selects without a
+  gear take the full width, the Navigation row has its own hint, the collapsed "Clean up" card says
+  what it holds, and Devices lists the server address for apps with auto-discovery.
+
+### Fixed
+
+- The search icon in "Search events" rendered as a filled dot.
+- The "go to date" field showed two calendar icons and an empty `mm/dd/yyyy`.
+- The opened "Clean up" card was far taller than its content.
+
 ## [1.0.0] - 2026-11-24
 
 First public release. One OpenCloud web extension adds **Calendar**, **Contacts** and **Tasks** to
@@ -89,5 +112,6 @@ and proxies on the same origin, so the app has no server component and no databa
   extensions; the German UI addresses the user formally ("Sie"), like OpenCloud itself.
 - Counts use `$ngettext` with real singular and plural forms instead of an "(s)" suffix.
 
-[Unreleased]: https://github.com/r1cht4/opencloud-planner/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/r1cht4/opencloud-planner/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/r1cht4/opencloud-planner/compare/v1.0.0...v1.0.1
 [1.0.0]: https://github.com/r1cht4/opencloud-planner/releases/tag/v1.0.0

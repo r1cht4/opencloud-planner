@@ -122,7 +122,7 @@ defineProps<{
   height: 1.125rem;
   /* The UA margin (3px) would keep the right-aligned box off the card edge. */
   margin: 0;
-  accent-color: var(--oc-role-primary, #00677f);
+  accent-color: var(--oc-role-secondary, #20434f);
 }
 
 /* A checkbox is a compact control: right-align it (with its toggle row) so it sits

@@ -16,3 +16,16 @@ html.planner-app
      height stays equal to the other entries) and in the accessibility tree. */
   opacity: 0;
 }
+
+/* The active entry of the in-app sidebar (our apps in the host's nav) must look
+   like the host's own active entries — a surface-filled button with a subtle
+   outline (web-runtime SidebarNavItem: `appearance="filled" color-role="surface"`
+   + `.active { outline-color: surface-container-highest }`). Never the primary
+   token: in the OpenCloud theme `--oc-role-primary` is a pale purple (#e2baff),
+   which reads as a purple pill here. Scoped to Planner pages, so the Files
+   app's own entries are untouched. */
+html.planner-app #web-nav-sidebar .oc-sidebar-nav-item-link.active {
+  background-color: var(--oc-role-surface, #fbfcfe);
+  color: var(--oc-role-on-surface, #191c1d);
+  outline-color: var(--oc-role-surface-container-highest, #eceef0);
+}

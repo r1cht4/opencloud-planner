@@ -208,16 +208,11 @@
 
           <div class="modal-actions">
             <template v-if="editing && preview">
-              <oc-button
-                appearance="outline"
-                color-role="primary"
-                class="delete-btn"
-                @click.prevent="emit('delete')"
-              >
+              <oc-button appearance="outline" class="delete-btn" @click.prevent="emit('delete')">
                 {{ $gettext('Delete') }}
               </oc-button>
               <div class="spacer" />
-              <oc-button appearance="filled" color-role="primary" @click.prevent="preview = false">
+              <oc-button appearance="filled" @click.prevent="preview = false">
                 {{ $gettext('Edit') }}
               </oc-button>
             </template>
@@ -225,7 +220,6 @@
               <oc-button
                 v-if="editing"
                 appearance="outline"
-                color-role="primary"
                 class="delete-btn"
                 @click.prevent="emit('delete')"
               >
@@ -237,7 +231,6 @@
               </oc-button>
               <oc-button
                 appearance="filled"
-                color-role="primary"
                 submit="submit"
                 :disabled="endBeforeStart || !eventForm.title.trim()"
               >
@@ -467,14 +460,14 @@ function onSubmit() {
   border: 1px solid var(--oc-role-outline-variant, #bfc8cc);
   border-radius: 8px;
   background: var(--oc-role-surface, #fbfcfe);
-  color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
 }
 .reminder-add:hover,
 .reminder-add:focus-visible {
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
   outline: none;
 }
 

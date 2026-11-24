@@ -34,7 +34,7 @@
           <oc-button appearance="outline" @click="emit('cancel')">
             {{ $gettext('Cancel') }}
           </oc-button>
-          <oc-button appearance="filled" color-role="primary" @click="emit('select', 'series')">
+          <oc-button appearance="filled" @click="emit('select', 'series')">
             {{ $gettext('Entire series') }}
           </oc-button>
         </div>

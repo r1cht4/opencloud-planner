@@ -30,12 +30,7 @@
           <oc-button appearance="outline" :disabled="saving" @click="emit('cancel')">
             {{ $gettext('Cancel') }}
           </oc-button>
-          <oc-button
-            appearance="filled"
-            color-role="primary"
-            :disabled="saving"
-            @click="emit('confirm')"
-          >
+          <oc-button appearance="filled" :disabled="saving" @click="emit('confirm')">
             {{ $gettext('Move') }}
           </oc-button>
         </div>

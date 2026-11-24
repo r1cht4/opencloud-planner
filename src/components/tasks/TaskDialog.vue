@@ -90,12 +90,7 @@
             <oc-button appearance="outline" @click="emit('close')">
               {{ $gettext('Cancel') }}
             </oc-button>
-            <oc-button
-              appearance="filled"
-              color-role="primary"
-              submit="submit"
-              :disabled="!taskForm.title.trim()"
-            >
+            <oc-button appearance="filled" submit="submit" :disabled="!taskForm.title.trim()">
               {{ $gettext('Save') }}
             </oc-button>
           </div>
@@ -286,7 +281,7 @@ function onSubmit() {
 }
 .form-input:focus {
   outline: none;
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 .form-select {
   border: 1px solid var(--oc-role-outline-variant, #bfc8cc);
@@ -300,7 +295,7 @@ function onSubmit() {
 }
 .form-select:focus {
   outline: none;
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 
 .modal-actions {

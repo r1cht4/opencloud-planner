@@ -250,23 +250,16 @@ describe('Tasks view', () => {
     expect(rows[0].classes()).toContain('is-completed')
   })
 
-  it('adds a task from the quick-add input', async () => {
-    const calls = stubFetch()
+  it('has no quick-add row: new tasks come from the New task button', async () => {
+    stubFetch()
     const view = await mountLoaded()
 
-    await view.find('#quick-add-input').setValue('Water the plants')
-    await view.find('form.quick-add').trigger('submit')
-
-    await vi.waitFor(() => expect(messages).toContain('Task created'), { timeout: 10_000 })
-
-    const put = calls.find((c) => c.method === 'PUT')!
-    expect(put.headers.get('If-None-Match')).toBe('*')
-    expect(put.body).toContain('SUMMARY:Water the plants')
-
-    await vi.waitFor(
-      () => expect(view.findAll('.task-title').map((t) => t.text())).toContain('Water the plants'),
-      { timeout: 10_000 }
-    )
+    expect(view.find('form.quick-add').exists()).toBe(false)
+    expect(view.find('#quick-add-input').exists()).toBe(false)
+    // The Open/Completed/All switch is its own toolbar item (second row, left),
+    // not part of the button group on the right.
+    expect(view.find('.toolbar > .toolbar-filter .filter-group').exists()).toBe(true)
+    expect(view.find('.toolbar-actions .filter-group').exists()).toBe(false)
   })
 
   it('completes a task from its checkbox', async () => {

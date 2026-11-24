@@ -201,7 +201,7 @@ const avatarColor = computed(() => resolveAvatarColor(props.contact.displayName)
 }
 
 .link {
-  color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
   text-decoration: none;
 }
 .link:hover {

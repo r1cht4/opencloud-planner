@@ -154,7 +154,10 @@ describe('searchEvents', () => {
 
 const OcIconStub = defineComponent({
   name: 'OcIcon',
-  setup: () => () => h('span', { class: 'oc-icon' })
+  setup:
+    (_props, { attrs }) =>
+    () =>
+      h('span', { ...attrs, class: ['oc-icon', attrs.class as string | undefined] })
 })
 
 let wrapper: VueWrapper | null = null
@@ -263,5 +266,19 @@ describe('EventSearch component', () => {
     await wrapper!.vm.$nextTick()
     expect(options()).toHaveLength(0)
     expect(document.body.textContent).toContain('No matching events in the loaded period.')
+  })
+
+  it('renders the search icon as the outline magnifier in field and toggle', () => {
+    // Regression: the default `fill-type="fill"` glyph read as a filled dot
+    // inside the input; both states now use the line magnifier with an
+    // explicit icon box (`.event-search-icon` pins 16 px + `fill: currentColor`).
+    mountSearch()
+    const icons = Array.from(document.body.querySelectorAll<HTMLElement>('.oc-icon'))
+    expect(icons.length).toBeGreaterThan(0)
+    for (const icon of icons) {
+      expect(icon.getAttribute('fill-type')).toBe('line')
+      expect(icon.getAttribute('name')).toBe('search')
+    }
+    expect(document.body.querySelector('.event-search-icon')).toBeTruthy()
   })
 })

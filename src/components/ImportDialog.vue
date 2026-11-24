@@ -80,12 +80,7 @@
           <oc-button appearance="outline" :disabled="importBusy" @click="close">
             {{ $gettext('Cancel') }}
           </oc-button>
-          <oc-button
-            appearance="filled"
-            color-role="primary"
-            :disabled="confirmDisabled"
-            @click="confirm"
-          >
+          <oc-button appearance="filled" :disabled="confirmDisabled" @click="confirm">
             {{ importBusy ? $gettext('Importing…') : $gettext('Import') }}
           </oc-button>
         </div>
@@ -304,7 +299,7 @@ async function confirm(): Promise<void> {
 }
 
 .import-option input[type='radio'] {
-  accent-color: var(--oc-role-primary, #00677f);
+  accent-color: var(--oc-role-secondary, #20434f);
 }
 
 .import-option-control {

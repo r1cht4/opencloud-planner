@@ -6,12 +6,15 @@
     :class="{ 'settings-section--wide': wide }"
   >
     <summary class="settings-section-summary">
-      <h2 class="settings-section-title">{{ title }}</h2>
+      <span class="settings-section-heading">
+        <h2 class="settings-section-title">{{ title }}</h2>
+        <!-- In the summary, so the collapsed card still says what it holds. -->
+        <span v-if="hint" class="settings-section-hint">{{ hint }}</span>
+      </span>
       <span class="settings-section-chevron" aria-hidden="true">
         <oc-icon name="arrow-down-s" size="small" />
       </span>
     </summary>
-    <p v-if="hint" class="settings-section-hint">{{ hint }}</p>
     <div class="settings-section-body">
       <slot />
     </div>
@@ -66,6 +69,11 @@ defineProps<{
   padding: 16px;
   border-radius: 8px;
   background: var(--oc-role-surface-container-low, #f3f4f5);
+  /* The card must stay separable from the page and from its neighbours in both
+     themes: in dark mode `surface-container-low` can coincide with the page
+     background, so the outline-variant border carries the separation there (and
+     adds a crisp edge in light mode). */
+  border: 1px solid var(--oc-role-outline-variant, #bfc8cc);
 }
 
 .settings-section--wide {
@@ -73,6 +81,11 @@ defineProps<{
 }
 
 .settings-section-title {
+  /* The host's base stylesheet gives h2 a `margin-block: 16px`; inside the flex
+     card that margin doubled the space above the heading (padding + margin)
+     while the last row only had the padding below it. Zeroing it balances top
+     and bottom (16 px each) in light and dark mode. */
+  margin: 0;
   font-size: 1rem;
   font-weight: 600;
   color: var(--oc-role-on-surface, #191c1d);
@@ -93,9 +106,16 @@ defineProps<{
 
 /* Collapsible group (Data → Clean up): the summary is the heading, the chevron
    replaces the default disclosure marker. */
+.settings-section-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+}
+
 .settings-section-summary {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 8px;
   list-style: none;
@@ -107,7 +127,7 @@ defineProps<{
 }
 
 .settings-section-summary:focus-visible {
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: 2px;
   border-radius: 4px;
 }

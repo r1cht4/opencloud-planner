@@ -7,6 +7,23 @@
           <PageHeaderActions />
         </div>
 
+        <div class="toolbar-actions">
+          <EventSearch :events="searchableEvents" :calendars="calendars" @select="onSearchSelect" />
+
+          <input
+            type="date"
+            class="date-nav-input"
+            :aria-label="$gettext('Go to date')"
+            :value="navDate"
+            @change="onDateNavChange"
+          />
+
+          <oc-button appearance="filled" @click="openCreateDialog()">
+            <oc-icon name="add" size="small" />
+            <span>{{ $gettext('New event') }}</span>
+          </oc-button>
+        </div>
+
         <div v-if="calendars.length > 0" class="calendar-chips">
           <button
             v-for="cal in calendars"
@@ -21,23 +38,6 @@
             <span class="calendar-chip-dot" :style="{ backgroundColor: cal.color }" />
             <span class="calendar-chip-label">{{ cal.displayName }}</span>
           </button>
-        </div>
-
-        <div class="toolbar-actions">
-          <EventSearch :events="searchableEvents" :calendars="calendars" @select="onSearchSelect" />
-
-          <label class="date-nav" :aria-label="$gettext('Go to date')">
-            <span class="date-nav-icon" aria-hidden="true">
-              <oc-icon name="arrow-right-s" size="small" class="date-nav-arrow" />
-              <oc-icon name="calendar-event" size="small" />
-            </span>
-            <input type="date" class="date-nav-input" @change="onDateNavChange" />
-          </label>
-
-          <oc-button appearance="filled" color-role="primary" @click="openCreateDialog()">
-            <oc-icon name="add" size="small" />
-            <span>{{ $gettext('New event') }}</span>
-          </oc-button>
         </div>
       </div>
 
@@ -119,6 +119,7 @@ import { useCalendarGrid, type EventDragRequest } from '../composables/useCalend
 import { useEventActions } from '../composables/useEventActions'
 import { mapDavError } from '../composables/davErrorMessages'
 import { isBirthdayEvent } from '../composables/calendarViewUtils'
+import { formatDate } from '../ics/datetime'
 import type { EventFormDefaults } from '../composables/useEventForm'
 import { useSettings } from '../settings/settingsStore'
 import { useFormatLocale } from '../settings/formatLocale'
@@ -148,6 +149,10 @@ const route = useRoute()
 const { settings } = useSettings()
 
 const visibleCalendars = ref<Set<string>>(new Set())
+
+/** Value of the "jump to date" field — always the grid's current date, so the
+ *  native date input never shows an empty `mm/dd/yyyy` placeholder. */
+const navDate = ref(formatDate(new Date()))
 
 // Texts follow the OpenCloud language, date/time formats the region (see formatLocale.ts).
 const formatLocale = useFormatLocale()
@@ -206,7 +211,6 @@ const grid = useCalendarGrid({
   getCalendars: () => calendars.value,
   getVisible: () => visibleCalendars.value,
   getEvents: () => events.value,
-  isNarrow: () => grid.isNarrow(),
   openEvent: (event) => {
     if (isBirthdayEvent(event)) {
       showMessage({
@@ -221,7 +225,10 @@ const grid = useCalendarGrid({
   onEventDrag: (drag: EventDragRequest) => void actions.onEventDrag(drag),
   onDateClick: (start, end, allDay) => actions.openCreateDialog(start, end, allDay),
   onDateSelect: (start, end, allDay) => actions.openCreateDialog(start, end, allDay),
-  onDatesSet: (range) => void data.handleDatesSet(range)
+  onDatesSet: (range) => {
+    navDate.value = formatDate(range.start)
+    void data.handleDatesSet(range)
+  }
 })
 const { calendarEl, stackPopover, cancelStackClose, scheduleStackClose, hideStackPopover } = grid
 
@@ -261,7 +268,13 @@ function toggleCalendarVisibility(url: string) {
 function onDateNavChange(e: Event) {
   const input = e.target as HTMLInputElement
   if (!input.value) return
-  grid.setDate(input.value)
+  jumpTo(input.value)
+}
+
+/** Move the grid to a date and keep the date field in sync with it. */
+function jumpTo(date: string) {
+  navDate.value = date
+  grid.setDate(date)
 }
 
 /** Search input source: the loaded REPORT window, visible calendars only. */
@@ -275,7 +288,7 @@ const searchableEvents = computed(() =>
  * Birthday events are generated from contacts, so they only navigate.
  */
 function onSearchSelect(event: CalendarEvent) {
-  grid.setDate(event.start.slice(0, 10))
+  jumpTo(event.start.slice(0, 10))
   if (isBirthdayEvent(event)) {
     showMessage({
       title: $gettext(
@@ -307,7 +320,7 @@ function openItemFromQuery(): void {
   )
   if (!event) return
   openedFromQuery = wanted
-  grid.setDate(event.start.slice(0, 10))
+  jumpTo(event.start.slice(0, 10))
   if (isBirthdayEvent(event)) {
     showMessage({
       title: $gettext(
@@ -357,15 +370,15 @@ const {
 .toolbar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
   flex-wrap: wrap;
-  gap: 8px;
+  gap: 8px 16px;
 }
 
 .page-title-row {
   display: flex;
   align-items: center;
   gap: 4px;
+  flex-basis: 100%;
 }
 
 .page-title {
@@ -373,10 +386,25 @@ const {
   font-weight: 600;
 }
 
+/* Title on its own row; below it the calendar chips (left) and the actions
+   (right) share one row directly above the grid. The actions keep one order —
+   search, date field, New event (rightmost) — and wrap as a group when the chips need the
+   room. DOM order stays title → actions → chips for the tab order. */
 .toolbar-actions {
   display: flex;
   align-items: center;
-  gap: 18px;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-inline-start: auto;
+  order: 2;
+}
+
+/* "New event" as tall as the search field and the date input next to it; the
+   button would otherwise size to its font. 32px looks level with the 33px
+   fields (their border is drawn inside, the button's fill reaches the edge). */
+.toolbar-actions > .oc-button {
+  height: 32px;
+  box-sizing: border-box;
 }
 
 .calendar-chips {
@@ -384,6 +412,9 @@ const {
   align-items: center;
   gap: 6px;
   flex-wrap: wrap;
+  flex: 1 1 0;
+  min-width: 0;
+  order: 1;
 }
 
 .calendar-chip {
@@ -418,26 +449,8 @@ const {
   white-space: nowrap;
 }
 
-.date-nav {
-  display: inline-flex;
-  align-items: center;
-  height: 33px;
-  gap: 6px;
-}
-
-.date-nav-icon {
-  display: inline-flex;
-  align-items: center;
-  height: 33px;
-  gap: 0;
-  color: var(--oc-role-on-surface-variant, #40484c);
-}
-
-.date-nav-arrow {
-  margin-right: -7px;
-  transform: translate(2px, 2px);
-}
-
+/* The "jump to date" control: one native date input (its own picker icon is
+   the single affordance), always showing the grid's current date. */
 .date-nav-input {
   border: 1px solid var(--oc-role-outline-variant, #bfc8cc);
   border-radius: 8px;
@@ -452,7 +465,11 @@ const {
 }
 .date-nav-input:focus {
   outline: none;
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
+}
+.date-nav-input::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  opacity: 0.75;
 }
 
 .empty-state {
@@ -506,12 +523,12 @@ const {
   }
 
   .calendar-chips {
-    width: 100%;
     justify-content: center;
   }
 
   .toolbar-actions {
     width: 100%;
+    margin-inline-start: 0;
     padding-inline: 8px;
     box-sizing: border-box;
     justify-content: space-between;

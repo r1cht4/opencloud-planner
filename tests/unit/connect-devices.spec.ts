@@ -57,12 +57,12 @@ describe('ConnectDevices', () => {
     expect(text).toContain(`${window.location.origin}/carddav/`)
   })
 
-  it('mentions auto-discovery through the well-known endpoints', () => {
-    const text = mountCard().text()
+  it('lists the server address for apps with auto-discovery first', () => {
+    const wrapper = mountCard()
 
-    expect(text).toContain('.well-known/caldav')
-    expect(text).toContain('.well-known/carddav')
-    expect(text).toContain(window.location.origin)
+    expect(wrapper.findAll('.connect-label')[0].text()).toBe('Server')
+    expect(wrapper.findAll('.connect-value')[0].text()).toBe(window.location.origin)
+    expect(wrapper.text()).not.toContain('auto-discovery')
   })
 
   it('shows the OpenCloud username when the user store has one', () => {
@@ -93,7 +93,7 @@ describe('ConnectDevices', () => {
     const wrapper = mountCard()
 
     const copyButtons = wrapper.findAll('button')
-    await copyButtons[0].trigger('click')
+    await copyButtons[1].trigger('click')
     await flushPromises()
 
     expect(clipboard.writeText).toHaveBeenCalledWith(`${window.location.origin}/caldav/`)

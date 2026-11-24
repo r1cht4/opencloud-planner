@@ -215,9 +215,7 @@
             <oc-button appearance="outline" @click="emit('close')">{{
               $gettext('Cancel')
             }}</oc-button>
-            <oc-button appearance="filled" color-role="primary" submit="submit">{{
-              $gettext('Save')
-            }}</oc-button>
+            <oc-button appearance="filled" submit="submit">{{ $gettext('Save') }}</oc-button>
           </div>
         </form>
       </div>
@@ -502,7 +500,7 @@ function onPhotoSelect(e: Event) {
   transition: border-color 0.15s;
 }
 .photo-avatar-label:hover .photo-avatar {
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 .photo-avatar-placeholder {
   width: 72px;
@@ -519,7 +517,7 @@ function onPhotoSelect(e: Event) {
     background 0.15s;
 }
 .photo-avatar-label:hover .photo-avatar-placeholder {
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
   background: var(--oc-role-primary-container, #b7eaff);
 }
 .photo-remove-link {
@@ -561,7 +559,7 @@ function onPhotoSelect(e: Event) {
 }
 .type-select:focus {
   outline: none;
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 .remove-field-btn {
   background: none;
@@ -580,7 +578,7 @@ function onPhotoSelect(e: Event) {
   border: none;
   cursor: pointer;
   font-size: 0.8125rem;
-  color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
   padding: 2px 0;
 }
 .add-field-btn:hover {

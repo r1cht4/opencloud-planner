@@ -8,11 +8,17 @@
       :title="$gettext('Search events')"
       @click="expand"
     >
-      <oc-icon name="search" size="small" />
+      <oc-icon name="search" size="small" fill-type="line" />
     </button>
 
     <div v-else class="event-search-field">
-      <oc-icon name="search" size="small" class="event-search-icon" aria-hidden="true" />
+      <oc-icon
+        name="search"
+        size="small"
+        fill-type="line"
+        class="event-search-icon"
+        aria-hidden="true"
+      />
       <input
         ref="inputRef"
         v-model="query"
@@ -258,8 +264,8 @@ onUnmounted(() => narrowMq?.removeEventListener('change', onMediaChange))
 .event-search-toggle:focus-visible,
 .event-search-clear:hover,
 .event-search-clear:focus-visible {
-  border-color: var(--oc-role-primary, #00677f);
-  color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
+  color: var(--oc-role-secondary, #20434f);
   outline: none;
 }
 
@@ -275,12 +281,24 @@ onUnmounted(() => narrowMq?.removeEventListener('change', onMediaChange))
   min-width: 0;
 }
 .event-search-field:focus-within {
-  border-color: var(--oc-role-primary, #00677f);
+  border-color: var(--oc-role-secondary, #20434f);
 }
 
 .event-search-icon {
   color: var(--oc-role-on-surface-variant, #40484c);
   flex-shrink: 0;
+  /* The icon's own box: the outline magnifier (`fill-type="line"`) at a fixed
+     16 px, so a tight flex row can never squeeze it into a dot. */
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  align-items: center;
+}
+.event-search-icon :deep(svg) {
+  width: 100%;
+  height: 100%;
+  display: block;
+  fill: currentColor;
 }
 
 .event-search-input {

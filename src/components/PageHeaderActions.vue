@@ -65,7 +65,7 @@ function requestTab(): void {
 }
 
 .page-header-action:focus-visible {
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: 2px;
 }
 </style>

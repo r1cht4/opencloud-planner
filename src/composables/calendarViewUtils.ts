@@ -28,10 +28,13 @@ export interface EcEvent {
   className?: string
 }
 
-/** Same-time events per cluster before they collapse into a "+N" block. */
-export function stackThreshold(isNarrow: boolean): number {
-  return isNarrow ? 2 : 3
-}
+/**
+ * Overlapping timed events collapse into a "+N" stack from this many events
+ * on, on every viewport width: two events side by side split the day column
+ * into slivers whose titles truncate to "Nachbere…", while the stack block
+ * keeps the full column width and lists the events in a popover.
+ */
+export const STACK_THRESHOLD = 2
 
 export function getCalendarColor(calendars: CalendarCollection[], calendarUrl: string): string {
   return calendars.find((c) => c.url === calendarUrl)?.color || DEFAULT_CALENDAR_COLOR
@@ -133,17 +136,65 @@ export function mergeRefreshedEvents(
 }
 
 /**
- * Short timed events can't fit both a time line and a title. After render we
- * measure each block and tag it so CSS can drop the time and give the title the
- * full area (and shrink it for the tiniest slots).
+ * Short timed events can't fit both a time line and a title, so the rendered
+ * block picks its content from the height it actually got (measured after
+ * render, see `tagEventElement`):
+ *  - `two-line` — time range on the first line, title below;
+ *  - `one-line` — `start time · title` on a single line, smaller font;
+ *  - `block`    — less than one line: no text, just the coloured block
+ *    (details are on hover/focus via the tooltip).
+ *
+ * Thresholds in px of the event block (clientHeight, padding included). With
+ * the grid's default `slotHeight` 24 px per 30 min (48 px/h): a 15 min event
+ * is 12 px → block, 30 min is 24 px → one-line, 60 min is 48 px → two-line.
+ * Two lines need 2 × ~16 px line box + 6 px padding ≈ 38 px, rounded to 40;
+ * one line needs ~16 px + 6 px ≈ 22 px, rounded down to 20 so a 30 min slot
+ * (24 px) still shows text.
+ */
+export const TWO_LINE_MIN_HEIGHT = 40
+export const ONE_LINE_MIN_HEIGHT = 20
+
+export type EventDensityMode = 'two-line' | 'one-line' | 'block'
+
+export function eventDensityMode(heightPx: number): EventDensityMode {
+  if (heightPx >= TWO_LINE_MIN_HEIGHT) return 'two-line'
+  if (heightPx >= ONE_LINE_MIN_HEIGHT) return 'one-line'
+  return 'block'
+}
+
+/** Escape user-controlled text for the `html` content hooks of the grid. */
+export function escapeHtml(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
+/**
+ * Content of a timed event block in the time grid (`eventContent` hook): the
+ * range time and the start-only time are both rendered and the density mode
+ * (CSS class set after measuring) decides which one is visible — the one-line
+ * mode shows `start · title`, the two-line mode the range above the title.
+ */
+export function eventBlockHtml(title: string, rangeText: string, startText: string): string {
+  return (
+    `<span class="ec-event-time ec-event-time--range">${escapeHtml(rangeText)}</span>` +
+    `<span class="ec-event-time ec-event-time--start">${escapeHtml(startText)}</span>` +
+    `<h4 class="ec-event-title">${escapeHtml(title)}</h4>`
+  )
+}
+
+/**
+ * After render we measure each block and tag it with its density mode so CSS
+ * can pick the content that fits (see `eventDensityMode`). Only timed events
+ * in a time-grid view carry the time spans; everywhere else the tags are
+ * removed and the library's default rendering stays.
  */
 export function tagEventElement(el: HTMLElement | null | undefined, isTimeGrid: boolean): void {
   if (!el) return
-  if (!isTimeGrid || !el.querySelector('.ec-event-time')) {
-    el.classList.remove('ec-event--compact', 'ec-event--tiny')
-    return
-  }
-  const h = el.clientHeight
-  el.classList.toggle('ec-event--compact', h < 46)
-  el.classList.toggle('ec-event--tiny', h < 20)
+  el.classList.remove('ec-event--two-line', 'ec-event--one-line', 'ec-event--block')
+  if (!isTimeGrid || !el.querySelector('.ec-event-time')) return
+  el.classList.add(`ec-event--${eventDensityMode(el.clientHeight)}`)
 }

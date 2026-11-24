@@ -111,7 +111,6 @@
             </oc-button>
             <oc-button
               appearance="filled"
-              color-role="primary"
               :disabled="busy || !planItems.length"
               @click="confirmRestore"
             >

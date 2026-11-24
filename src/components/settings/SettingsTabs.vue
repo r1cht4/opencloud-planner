@@ -160,14 +160,14 @@ function onKeydown(event: KeyboardEvent, index: number): void {
 
 .settings-tab:focus-visible {
   /* Inset: the bar clips its overflow, an outside ring would be cut off. */
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: -2px;
   border-radius: 4px 4px 0 0;
 }
 
 .settings-tab--active {
-  color: var(--oc-role-primary, #00677f);
-  border-bottom-color: var(--oc-role-primary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
+  border-bottom-color: var(--oc-role-secondary, #20434f);
   font-weight: 600;
 }
 

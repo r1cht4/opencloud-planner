@@ -617,6 +617,50 @@ describe('Settings page', () => {
     expect(state.calls).toContainEqual(['general.appDrawer', 'individual'])
   })
 
+  it('grows the Navigation select to the full control width when the gear is hidden', async () => {
+    // Default mode is "App menu only": no gear, so the inline row is solo and the
+    // select spans the whole control column like the "Default app" select above.
+    const wrapper = mountSettings()
+    await flushPromises()
+
+    const select = wrapper.find('select[data-setting="general.navigation"]')
+    const inline = select.element.closest('.settings-inline') as HTMLElement
+    expect(inline.classList.contains('settings-inline--solo')).toBe(true)
+    expect(wrapper.find('[data-toggle="general.filesSidebarPosition"]').exists()).toBe(false)
+
+    // Files-sidebar mode: the gear comes back and the row keeps its two-column
+    // inline grid (select + gear), so the select ends where the other rows' do.
+    await select.setValue('filesSidebar')
+    await flushPromises()
+
+    const inlineAgain = wrapper
+      .find('select[data-setting="general.navigation"]')
+      .element.closest('.settings-inline') as HTMLElement
+    expect(inlineAgain.classList.contains('settings-inline--solo')).toBe(false)
+    expect(wrapper.find('[data-toggle="general.filesSidebarPosition"]').exists()).toBe(true)
+  })
+
+  it('gives the Navigation row its own hint in app-menu-only mode', async () => {
+    // Default navigation is "App menu only"; the App-menu row shows the "one
+    // entry" hint in the same situation, so the Navigation row must not repeat it.
+    const wrapper = mountSettings()
+    await flushPromises()
+
+    const navRow = wrapper
+      .find('select[data-setting="general.navigation"]')
+      .element.closest('.settings-row') as HTMLElement
+    expect(navRow.querySelector('.settings-row-hint')?.textContent).toBe(
+      'Nothing in the Files sidebar; open the apps from the app menu.'
+    )
+
+    const drawerRow = wrapper
+      .find('select[data-setting="general.appDrawer"]')
+      .element.closest('.settings-row') as HTMLElement
+    expect(drawerRow.querySelector('.settings-row-hint')?.textContent).toBe(
+      'One Planner entry in the app menu; switch apps in the sidebar.'
+    )
+  })
+
   it('puts the position select and the checkbox in one row, side by side', async () => {
     state.doc = { general: { navigation: 'filesSidebar' } }
 

@@ -8,7 +8,8 @@
  * control per row, a lock marker on locked rows, and `<details>`-based groups and
  * option blocks that start collapsed.
  */
-import { readdirSync, readFileSync } from 'node:fs'
+import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { join } from 'node:path'
 import { describe, expect, it, vi } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, h, type PropType } from 'vue'
@@ -224,5 +225,90 @@ describe('Settings page layout invariants', () => {
     const shared = readFileSync('src/styles/settings.css', 'utf8')
     expect(shared).toContain('.settings-select--fill')
     expect(shared).toContain('.settings-button-row')
+  })
+})
+
+describe('Settings card look (dark mode + heading spacing)', () => {
+  it('separates the group card from the page with an outline border in both themes', () => {
+    // In dark mode `surface-container-low` can equal the page background, so the
+    // card needs the border to stay a visible card.
+    const source = readFileSync('src/components/settings/SettingsSection.vue', 'utf8')
+    const style = source.slice(source.indexOf('<style scoped>'))
+    const card = style.slice(
+      style.indexOf('.settings-section {'),
+      style.indexOf('}', style.indexOf('.settings-section {'))
+    )
+    expect(card).toContain('border: 1px solid var(--oc-role-outline-variant')
+  })
+
+  it('zeroes the heading margin so space above the title equals the space below the last row', () => {
+    // The host base stylesheet gives h2 `margin-block: 16px`, which doubled the
+    // space above the card heading (padding + margin) while the last row only
+    // had the padding. `margin: 0` makes top and bottom both 16 px.
+    const source = readFileSync('src/components/settings/SettingsSection.vue', 'utf8')
+    const style = source.slice(source.indexOf('<style scoped>'))
+    const title = style.slice(
+      style.indexOf('.settings-section-title {'),
+      style.indexOf('}', style.indexOf('.settings-section-title {'))
+    )
+    expect(title).toContain('margin: 0')
+  })
+
+  it('lets a collapsed card match its row neighbour and keeps open cards natural', () => {
+    const source = readFileSync('src/views/Settings.vue', 'utf8')
+    const style = source.slice(source.indexOf('<style scoped>'))
+    const rule = style.slice(style.indexOf('.settings-section--collapsible:not([open])'))
+    expect(rule.slice(0, rule.indexOf('}'))).toContain('align-self: stretch')
+    // The General tab no longer stretches its columns (no empty space under Format).
+    expect(style).not.toContain(".settings-panel[data-tab='general']")
+  })
+
+  it('does not turn the block flex basis into a height when blocks are stacked', () => {
+    const shared = readFileSync('src/styles/settings.css', 'utf8')
+    const rule = shared.slice(shared.indexOf('.settings-blocks--column > .settings-block'))
+    expect(rule.slice(0, rule.indexOf('}'))).toContain('flex: 0 0 auto')
+  })
+
+  it('collapses the inline grid to one column when the trailing control is hidden', () => {
+    const shared = readFileSync('src/styles/settings.css', 'utf8')
+    const solo = shared.slice(shared.indexOf('.settings-inline--solo'))
+    expect(solo.slice(0, solo.indexOf('}'))).toContain('grid-template-columns: minmax(0, 1fr)')
+  })
+})
+
+describe('Theme tokens (no purple primary accents)', () => {
+  function sourceFiles(dir: string): string[] {
+    return readdirSync(dir).flatMap((name) => {
+      const path = join(dir, name)
+      return statSync(path).isDirectory()
+        ? sourceFiles(path)
+        : /\.(ts|vue|css)$/.test(name)
+          ? [path]
+          : []
+    })
+  }
+
+  it('uses no `color-role="primary"` oc-button any more (the primary token is pale purple)', () => {
+    // Filled action buttons use the OcButton default role (`secondary`, the dark
+    // fill of the host's own primary actions) — `color-role="primary"` painted
+    // them light purple (#e2baff in the OpenCloud theme).
+    const offenders = sourceFiles('src').filter((file) =>
+      readFileSync(file, 'utf8').includes('color-role="primary"')
+    )
+    expect(offenders).toEqual([])
+  })
+
+  it('uses no `--oc-role-primary` accent in our CSS (selection/focus states use secondary)', () => {
+    // `primary-container` stays: it is the light-blue today/highlight tint, not
+    // the purple primary. Everything interactive (focus rings, checkbox accent,
+    // active tab, hover icons) follows the host's secondary token.
+    const offenders: string[] = []
+    for (const file of sourceFiles('src')) {
+      const text = readFileSync(file, 'utf8')
+      for (const match of text.matchAll(/var\(--oc-role-primary,/g)) {
+        offenders.push(`${file}: ${text.slice(match.index, match.index + 40)}`)
+      }
+    }
+    expect(offenders).toEqual([])
   })
 })

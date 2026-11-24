@@ -227,19 +227,19 @@ afterEach(() => {
 })
 
 describe('Tasks view honours the tasks settings', () => {
-  it('quick-add task uses tasks.defaultCalendar', async () => {
+  it('the New task dialog preselects tasks.defaultCalendar', async () => {
     setMockSettingsDocument(settingsState, { tasks: { defaultCalendar: CAL_WORK } })
-    const calls = stubFetch()
+    stubFetch()
     const view = await mountTasks()
 
-    await view.find('#quick-add-input').setValue('Write the report')
-    await view.find('form.quick-add').trigger('submit')
+    // `oc-button` is stubbed: fire its click listener directly.
+    const newTask = view.find('.toolbar-actions').element.firstElementChild!
+    newTask.dispatchEvent(new Event('click'))
 
-    await vi.waitFor(() => expect(calls.some((call) => call.method === 'PUT')).toBe(true), {
+    await vi.waitFor(() => expect(view.find('#task-calendar').exists()).toBe(true), {
       timeout: 10_000
     })
-    const put = calls.find((call) => call.method === 'PUT')!
-    expect(put.url.startsWith(CAL_WORK)).toBe(true)
+    expect((view.find('#task-calendar').element as HTMLSelectElement).value).toBe(CAL_WORK)
   })
 
   it('showCompleted opens the All filter so completed tasks are visible', async () => {
@@ -291,13 +291,13 @@ describe('Tasks connection gate and reminder refresh', () => {
   it('wraps the view in ConnectionGate', async () => {
     stubFetch()
     const view = await mountTasks()
-    expect(view.find('.quick-add').exists()).toBe(true)
+    expect(view.find('.filter-group').exists()).toBe(true)
 
     probe.outcome.value = 'unavailable'
     await vi.waitFor(() => expect(view.text()).toContain('The calendar server is not reachable'), {
       timeout: 10_000
     })
-    expect(view.find('.quick-add').exists()).toBe(false)
+    expect(view.find('.filter-group').exists()).toBe(false)
   })
 
   it('refreshes reminders after completing a task', async () => {

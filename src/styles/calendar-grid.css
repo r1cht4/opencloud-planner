@@ -12,8 +12,8 @@
   --ec-border-color: var(--oc-role-outline-variant, #bfc8cc);
   --ec-bg-color: var(--oc-role-surface, #fbfcfe);
   --ec-text-color: var(--oc-role-on-surface, #191c1d);
-  --ec-event-bg-color: var(--oc-role-primary, #00677f);
-  --ec-event-text-color: var(--oc-role-on-primary, #ffffff);
+  --ec-event-bg-color: var(--oc-role-secondary, #20434f);
+  --ec-event-text-color: var(--oc-role-on-secondary, #ffffff);
   --ec-today-bg-color: color-mix(
     in srgb,
     var(--oc-role-primary-container, #b7eaff) 30%,
@@ -25,7 +25,7 @@
   --ec-button-border-color: var(--oc-role-outline-variant, #bfc8cc);
   --ec-button-text-color: var(--oc-role-on-surface, #191c1d);
   --ec-button-active-bg-color: var(--oc-role-secondary-container, #d5e4ea);
-  --ec-button-active-border-color: var(--oc-role-primary, #00677f);
+  --ec-button-active-border-color: var(--oc-role-secondary, #20434f);
   --ec-button-active-text-color: var(--oc-role-on-secondary-container, #0e1f25);
   --ec-popup-bg-color: var(--oc-role-surface-container-lowest, #ffffff);
   --ec-color-300: var(--oc-role-outline-variant, #bfc8cc);
@@ -119,6 +119,7 @@
   border-radius: 6px;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   font-size: 0.8rem;
+  line-height: 1.3;
   padding: 3px 6px;
   transition: box-shadow 0.15s;
 }
@@ -133,26 +134,88 @@
   color: inherit;
 }
 
-/* Short timed events: no room for a time line, so drop it and give the title
-   the whole block. `--tiny` shrinks the type for the shortest slots. */
-.calendar-wrapper .ec-event--compact {
+/* Time-grid event content follows the height the block actually got (the
+   density mode is measured after render and set as a class):
+   - two-line (>= 40 px): range time on the first line, title below;
+   - one-line (>= 20 px): `start · title` on a single line, smaller font;
+   - block (< 20 px): no text, just the coloured block (details on hover/focus
+     via the tooltip). */
+.calendar-wrapper .ec-time-grid .ec-event-time {
+  font-size: 0.72rem;
+  opacity: 0.9;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.calendar-wrapper .ec-time-grid .ec-event-time--start {
+  display: none;
+  flex-shrink: 0;
+}
+.calendar-wrapper .ec-time-grid .ec-event-title {
+  position: static;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.calendar-wrapper .ec-event--one-line {
   padding: 2px 5px;
 }
-.calendar-wrapper .ec-event--compact .ec-event-time {
+.calendar-wrapper .ec-event--one-line .ec-event-body {
+  flex-direction: row;
+  align-items: baseline;
+  gap: 0;
+  min-width: 0;
+}
+.calendar-wrapper .ec-event--one-line .ec-event-time--range {
   display: none;
 }
-.calendar-wrapper .ec-event--compact .ec-event-title {
+.calendar-wrapper .ec-event--one-line .ec-event-time--start {
+  display: inline;
+}
+.calendar-wrapper .ec-event--one-line .ec-event-time--start::after {
+  content: '·';
+  margin-inline: 3px;
+  opacity: 0.7;
+}
+.calendar-wrapper .ec-event--one-line .ec-event-title {
   font-size: 0.75rem;
-  line-height: 1.2;
-  position: static;
+  min-width: 0;
 }
-.calendar-wrapper .ec-event--tiny {
-  padding: 0 4px;
-  align-items: center;
+.calendar-wrapper .ec-event--block {
+  padding: 0;
 }
-.calendar-wrapper .ec-event--tiny .ec-event-title {
-  font-size: 0.68rem;
-  line-height: 1.1;
+.calendar-wrapper .ec-event--block .ec-event-body {
+  display: none;
+}
+
+/* Current-time line (week/day view): above the event blocks, OpenCloud error
+   red (--ec-now-indicator-color is mapped to --oc-role-error above). */
+.calendar-wrapper .ec-now-indicator {
+  z-index: 2;
+}
+
+/* Hover/focus details card for event blocks (title, time range, calendar,
+   location). Fixed-positioned by the tooltip composable; never intercepts
+   the pointer, so click/drag/resize on the block keep working. */
+.ec-event-tooltip {
+  position: fixed;
+  z-index: 300;
+  max-width: 280px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--oc-role-outline-variant, #bfc8cc);
+  background: var(--oc-role-surface-container-lowest, #ffffff);
+  color: var(--oc-role-on-surface, #191c1d);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.16);
+  font-size: 0.8rem;
+  line-height: 1.35;
+  pointer-events: none;
+}
+.ec-event-tooltip .ec-event-tooltip-line:first-child {
+  font-weight: 600;
+}
+.ec-event-tooltip .ec-event-tooltip-line {
+  overflow-wrap: anywhere;
 }
 
 /* Draggable cursor */

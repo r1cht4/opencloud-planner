@@ -51,7 +51,7 @@ const { $gettext } = useGettext()
      as text on the near-white card it is unreadable. The theme's dark accent
      (`secondary`, #20434f here) keeps the "text button" look and passes contrast,
      and the chevron inherits it. */
-  color: var(--oc-role-secondary, #00677f);
+  color: var(--oc-role-secondary, #20434f);
   padding: 4px 0;
 }
 
@@ -64,7 +64,7 @@ const { $gettext } = useGettext()
 }
 
 .settings-more-summary:focus-visible {
-  outline: 2px solid var(--oc-role-primary, #00677f);
+  outline: 2px solid var(--oc-role-secondary, #20434f);
   outline-offset: 2px;
   border-radius: 4px;
 }

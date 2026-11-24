@@ -421,6 +421,101 @@ describe('Calendar touch support', () => {
   })
 })
 
+describe('Calendar grid readability options', () => {
+  it('enables the now indicator and keeps overlaps non-staggered', async () => {
+    stubFetch()
+    await mountCalendar()
+
+    const options = createdOptions()
+    expect(options.nowIndicator).toBe(true)
+    expect(options.slotEventOverlap).toBe(false)
+  })
+
+  it('renders time-grid timed events with both time variants (height decides via CSS class)', async () => {
+    stubFetch()
+    await mountCalendar()
+
+    const content = createdOptions().eventContent as (info: {
+      event: { id: string; title: string; start: Date; end: Date; allDay?: boolean }
+      timeText: string
+      view?: { type?: string }
+    }) => { html: string } | undefined
+    expect(typeof content).toBe('function')
+
+    const timed = content({
+      event: {
+        id: 'x',
+        title: 'Standup <b>',
+        start: new Date(2026, 5, 7, 9, 30),
+        end: new Date(2026, 5, 7, 9, 45),
+        allDay: false
+      },
+      timeText: '9:30 – 9:45',
+      view: { type: 'timeGridWeek' }
+    })
+    expect(timed?.html).toContain('ec-event-time--range">9:30 – 9:45<')
+    expect(timed?.html).toContain('ec-event-time--start">')
+    expect(timed?.html).toContain('Standup &lt;b&gt;')
+
+    // All-day events and other views keep the library's default rendering.
+    const allDay = content({
+      event: {
+        id: 'y',
+        title: 'Holiday',
+        start: new Date(2026, 5, 7),
+        end: new Date(2026, 5, 8),
+        allDay: true
+      },
+      timeText: '',
+      view: { type: 'timeGridWeek' }
+    })
+    expect(allDay).toBeUndefined()
+    const month = content({
+      event: { id: 'y', title: 'Holiday', start: new Date(2026, 5, 7), end: new Date(2026, 5, 8) },
+      timeText: '9:30 – 9:45',
+      view: { type: 'dayGridMonth' }
+    })
+    expect(month).toBeUndefined()
+  })
+
+  it('binds the hover/focus tooltip from eventDidMount', async () => {
+    stubFetch()
+    await mountCalendar()
+
+    const options = createdOptions()
+    expect(typeof options.eventDidMount).toBe('function')
+    // The tooltip element exists once (role="tooltip") and the stack events
+    // are excluded — regular events get listeners on their block.
+    expect(document.getElementById('ec-event-tooltip')?.getAttribute('role')).toBe('tooltip')
+  })
+})
+
+describe('Calendar toolbar structure', () => {
+  it('puts "New event" last (rightmost) in the actions row, after search and the date field', async () => {
+    stubFetch()
+    const view = await mountCalendar()
+
+    const actions = view.find('.toolbar-actions')
+    expect(actions.exists()).toBe(true)
+    // Stable order at every width: search, date, New event.
+    const tags = Array.from(actions.element.children).map((c) => c.tagName.toLowerCase())
+    expect(tags).toEqual(['event-search-stub', 'input', 'oc-button-stub'])
+  })
+
+  it('date field is a single native input with label and the current date as value', async () => {
+    stubFetch()
+    const view = await mountCalendar()
+
+    // No extra decorative icons next to the input any more.
+    expect(view.find('.date-nav-icon').exists()).toBe(false)
+    const input = view.find('.date-nav-input')
+    expect(input.exists()).toBe(true)
+    expect(input.attributes('type')).toBe('date')
+    expect(input.attributes('aria-label')).toBe('Go to date')
+    expect((input.element as HTMLInputElement).value).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+  })
+})
+
 describe('Calendar ?open deep link', () => {
   it('?open= opens the event and jumps to its date', async () => {
     stubFetch()

@@ -8,7 +8,7 @@ import { davFetch } from './dav'
  * `?open=<href>` is how a reminder (or a notification click) brings the user to
  * the task it is about: `src/index.ts` pushes `/planner/tasks` with the
  * resource URL in the query, and the view opens that task's edit dialog once the
- * list is loaded. The href is read from the quick-add `PUT` response (that is the
+ * list is loaded. The href is read from the create `PUT` response (that is the
  * resource the click in a reminder would carry), then the task is completed and
  * deleted again.
  *
@@ -38,14 +38,15 @@ test.describe('Task deep link', () => {
     let taskUrl: string | null = null
 
     try {
-      // ── Quick add (Enter submits) ─────────────────────────────────────────
+      // ── New task dialog (Enter in the title submits) ──────────────────────
       const taskPut = await Promise.all([
         page.waitForResponse(
           (response) => response.request().method() === 'PUT' && response.url().includes('/caldav/')
         ),
         (async () => {
-          await page.locator('#quick-add-input').fill(taskTitle)
-          await page.locator('#quick-add-input').press('Enter')
+          await page.getByRole('button', { name: 'New task' }).click()
+          await page.getByRole('dialog').getByLabel('Title').fill(taskTitle)
+          await page.getByRole('dialog').getByLabel('Title').press('Enter')
         })()
       ]).then(([response]) => response)
       expect(taskPut.status()).toBeGreaterThanOrEqual(200)
