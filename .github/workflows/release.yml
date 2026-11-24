@@ -1,0 +1,188 @@
+name: Release
+
+# Builds and publishes the release files when a version tag (v*) is pushed:
+#   release/planner-<version>.zip   (one top-level folder planner/)
+#   release/sha256sum.txt
+#   release/md5sum.txt
+# All build logic lives in scripts/release.sh, so the workflow only adds the
+# tagging checks and the GitHub release.
+#
+# Pre-releases: tags containing `-alpha.`, `-beta.` or `-rc.` (e.g. v1.0.1-rc.1)
+# are published as GitHub pre-releases; every other tag is a normal release.
+#
+# Tags are created by the maintainer, not by CI:
+#   git tag v1.0.0 && git push origin v1.0.0
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Read version and pre-release flag
+        run: |
+          VERSION="$(node -p "require('./package.json').version")"
+          TAG="${GITHUB_REF_NAME}"
+          case "$TAG" in
+            *-alpha.* | *-beta.* | *-rc.*) PRERELEASE=true ;;
+            *) PRERELEASE=false ;;
+          esac
+          # The pushed tag must match the version the package was built from,
+          # otherwise a v1.0.1 tag would ship planner-1.0.0.zip.
+          if [ "v$VERSION" != "$TAG" ]; then
+            echo "::error::Tag '$TAG' does not match package.json version '$VERSION' (expected tag: v$VERSION)"
+            exit 1
+          fi
+          {
+            echo "VERSION=$VERSION"
+            echo "TAG=$TAG"
+            echo "PRERELEASE=$PRERELEASE"
+          } >>"$GITHUB_ENV"
+          echo "tag=$TAG version=$VERSION prerelease=$PRERELEASE"
+
+      # install --frozen-lockfile, lint, typecheck, unit tests, build, zip +
+      # md5sum.txt / sha256sum.txt
+      - name: Build release files
+        run: bash scripts/release.sh
+
+      # The release body is the version's section of CHANGELOG.md, so the
+      # changelog stays the single source of truth for what shipped.
+      - name: Build release notes from CHANGELOG.md
+        run: |
+          awk -v v="$VERSION" '
+            index($0, "## [" v "]") == 1 { inside = 1; next }
+            inside && /^## / { exit }
+            inside && /^\[[^]]+\]:/ { exit }
+            inside && !body && /^[[:space:]]*$/ { next }
+            inside { body = 1; print }
+          ' CHANGELOG.md >release/release-note.md
+          if [ ! -s release/release-note.md ]; then
+            echo "::error::CHANGELOG.md has no section for version $VERSION"
+            exit 1
+          fi
+          cat release/release-note.md
+
+      - name: Show release files
+        run: |
+          ls -l release
+          unzip -l release/*.zip
+          cat release/sha256sum.txt release/md5sum.txt
+
+      - name: Upload release artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: planner-${{ env.VERSION }}
+          path: |
+            release/planner-*.zip
+            release/md5sum.txt
+            release/sha256sum.txt
+            release/release-note.md
+          if-no-files-found: error
+
+      - name: Publish GitHub release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: OpenCloud Planner ${{ env.VERSION }}
+          body_path: release/release-note.md
+          prerelease: ${{ env.PRERELEASE == 'true' }}
+          files: |
+            release/planner-*.zip
+            release/md5sum.txt
+            release/sha256sum.txt
+
+  # Lists the new version in the OpenCloud Web App Store: adds it to Planner's
+  # entry in opencloud-eu/awesome-apps (webApps/apps.json, via
+  # scripts/store-entry.mjs) and opens a pull request there from the fork
+  # <owner>/awesome-apps. The store maintainers still review and merge it.
+  #
+  # Needs the repository secret STORE_PR_TOKEN: a classic personal access token
+  # with the `public_repo` scope, of the account that owns the fork (a
+  # fine-grained token cannot open a pull request in another owner's
+  # repository). Without the secret the job only prints a notice. Pre-releases
+  # are not listed; a version that is already listed, or an app that has no
+  # entry yet, leaves the list alone.
+  store-pr:
+    needs: release
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    env:
+      STORE_REPO: opencloud-eu/awesome-apps
+      STORE_APP_ID: com.github.r1cht4.opencloud-planner
+      STORE_PR_TOKEN: ${{ secrets.STORE_PR_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Open the App Store pull request
+        run: |
+          set -euo pipefail
+          TAG="$GITHUB_REF_NAME"
+          VERSION="${TAG#v}"
+          case "$TAG" in
+            *-alpha.* | *-beta.* | *-rc.*)
+              echo "Pre-release $TAG: not listed in the App Store."
+              exit 0
+              ;;
+          esac
+          if [ -z "$STORE_PR_TOKEN" ]; then
+            echo "::notice::STORE_PR_TOKEN is not set, so no App Store pull request for $TAG."
+            exit 0
+          fi
+
+          FORK="${GITHUB_REPOSITORY_OWNER}/awesome-apps"
+          BRANCH="planner-${TAG}"
+          TODAY="$(date -u +%F)"
+          ZIP="https://github.com/${GITHUB_REPOSITORY}/releases/download/${TAG}/planner-${VERSION}.zip"
+
+          git clone --depth 1 "https://github.com/${STORE_REPO}.git" store
+          STATUS="$(node scripts/store-entry.mjs store/webApps/apps.json \
+            --id "$STORE_APP_ID" --version "$VERSION" --url "$ZIP" --date "$TODAY")"
+          echo "$STATUS"
+          if [ "$STATUS" != "status=added" ]; then
+            echo "::notice::App Store list left unchanged (${STATUS#status=})."
+            exit 0
+          fi
+
+          # Commit as the package author, with the owner's GitHub no-reply address
+          # (package.json carries no mail address on purpose).
+          export GH_TOKEN="$STORE_PR_TOKEN"
+          AUTHOR_NAME="$(node -p "require('./package.json').author.replace(/\\s*[<(].*$/, '')")"
+          OWNER_ID="$(gh api "users/${GITHUB_REPOSITORY_OWNER}" --jq .id)"
+          cd store
+          git config user.name "$AUTHOR_NAME"
+          git config user.email "${OWNER_ID}+${GITHUB_REPOSITORY_OWNER}@users.noreply.github.com"
+          git switch -c "$BRANCH"
+          git commit -qam "chore: add Planner ${VERSION}"
+          git push --force -q "https://x-access-token:${STORE_PR_TOKEN}@github.com/${FORK}.git" \
+            "HEAD:refs/heads/${BRANCH}"
+
+          OPEN="$(gh pr list --repo "$STORE_REPO" --head "$BRANCH" --state open --json number --jq 'length')"
+          if [ "$OPEN" != "0" ]; then
+            echo "A pull request for ${BRANCH} is already open; the branch was updated."
+            exit 0
+          fi
+          gh pr create --repo "$STORE_REPO" --base main --head "${GITHUB_REPOSITORY_OWNER}:${BRANCH}" \
+            --title "chore: add Planner ${VERSION}" \
+            --body "Adds Planner ${VERSION} (released ${TODAY}) to the App Store list. Release notes: https://github.com/${GITHUB_REPOSITORY}/releases/tag/${TAG}"

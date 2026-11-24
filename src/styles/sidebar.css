@@ -1,0 +1,18 @@
+/*
+ * "Back to OpenCloud" (first in-app nav item) shows only its arrow: the label stays
+ * in the DOM as the accessible name but is transparent. Scoped to Planner pages
+ * through the `planner-app` class `src/index.ts` sets on <html>, so the Files app's
+ * own first sidebar entry is never touched. Host markup: web-runtime
+ * SidebarNavItem.vue (`li > .oc-sidebar-nav-item-link > span > oc-icon + span`).
+ */
+html.planner-app
+  #web-nav-sidebar
+  .oc-sidebar-nav
+  li:first-child
+  .oc-sidebar-nav-item-link
+  > span
+  > span:last-child {
+  /* Same trick as the host's collapsed sidebar: keep the label in the layout (row
+     height stays equal to the other entries) and in the accessibility tree. */
+  opacity: 0;
+}

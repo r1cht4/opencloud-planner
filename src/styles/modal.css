@@ -1,0 +1,162 @@
+/**
+ * Shared modal + form primitives for the Calendar, Contacts and Tools pages.
+ *
+ * These rules used to be duplicated (and slightly diverged) in the scoped
+ * `<style>` blocks of `Calendar.vue`, `Contacts.vue` and `Manage.vue`. They live
+ * in one global sheet because the dialogs are teleported to `<body>` and,
+ * since the Calendar view was split up, because the extracted dialog components
+ * (EventDialog, MoveConfirmDialog, RecurrenceScopeDialog) must not depend on the
+ * page's scoped CSS.
+ *
+ * The class names are unchanged. Views/components keep their deliberate
+ * deviations locally:
+ *   - Contacts/Tools: sticky full-bleed action bar, own title size
+ *   - Calendar dialogs: `--event` (500px form) and `--compact` (confirmations)
+ *
+ * Selector specificity note: scoped rules in a view compile to
+ * `.class[data-v-xxx]` and therefore win over these base rules, which is how the
+ * local deviations stay authoritative.
+ */
+
+/* ---------------------------------------------------------------------------
+ * Overlay + panel shell
+ * ------------------------------------------------------------------------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+}
+
+.modal-panel {
+  background: var(--oc-role-surface-container-lowest, #ffffff);
+  color: var(--oc-role-on-surface, #191c1d);
+  border-radius: 16px;
+  padding: 12px 24px 24px;
+  width: 560px;
+  max-width: 90vw;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+}
+
+/* Calendar event form (create/edit/preview). */
+.modal-panel--event {
+  width: 500px;
+  padding: 24px;
+}
+
+/* Calendar confirmations (move, recurrence scope): as narrow as the content. */
+.modal-panel--compact {
+  width: auto;
+  min-width: 280px;
+  max-width: 90vw;
+  padding: 24px;
+}
+
+.modal-title {
+  font-weight: 600;
+}
+
+/* ---------------------------------------------------------------------------
+ * Form primitives
+ * ------------------------------------------------------------------------- */
+
+.modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--oc-role-on-surface-variant, #40484c);
+}
+
+.form-input {
+  width: 100%;
+  border: 1px solid var(--oc-role-outline-variant, #bfc8cc);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  background: var(--oc-role-surface, #fbfcfe);
+  color: var(--oc-role-on-surface, #191c1d);
+  box-sizing: border-box;
+}
+.form-input:focus {
+  outline: none;
+  border-color: var(--oc-role-primary, #00677f);
+}
+
+.form-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.form-checkbox {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--oc-role-primary, #00677f);
+}
+
+.form-error {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--oc-role-error, #ba1a1a);
+  margin-top: 4px;
+}
+
+/* ---------------------------------------------------------------------------
+ * Action bar
+ * ------------------------------------------------------------------------- */
+
+.modal-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--oc-role-outline-variant, #bfc8cc);
+}
+
+.spacer {
+  flex: 1;
+}
+
+/* ---------------------------------------------------------------------------
+ * Mobile: dialogs become full-screen sheets, form rows collapse
+ * ------------------------------------------------------------------------- */
+
+@media (max-width: 640px) {
+  .modal-panel,
+  .modal-panel--event,
+  .modal-panel--compact {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    height: 100%;
+    max-height: 100%;
+    border-radius: 0;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

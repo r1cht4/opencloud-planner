@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # pnpm/action-setup reads the pinned version from package.json
+      # ("packageManager": "pnpm@10.18.1") - no corepack needed.
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm lint
+
+      # gettext workflow: every msgid in l10n/template.pot must be translated
+      # in de, fr and es, and l10n/translations.json must match the .po files
+      # (strings → `pnpm l10n:extract`, translate `l10n/locale/*/app.po`,
+      # `pnpm l10n:compile`)
+      - name: Check translations (de/fr/es)
+        run: pnpm l10n:check
+
+      - name: Typecheck
+        run: pnpm check:types
+
+      - name: Unit tests
+        run: pnpm exec vitest run
+
+      - name: Build
+        run: pnpm build

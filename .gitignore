@@ -1,0 +1,28 @@
+node_modules
+
+*.log
+.DS_Store
+.envrc
+
+/.pnpm-store/
+/assets/
+
+.env
+.idea
+.vscode
+
+# dev setup
+/dev/docker/traefik/certificates
+docker-compose.override.yml
+
+# release artifacts (scripts/release.sh)
+/release/
+# build output (installs come from the release zip; from a clone run `pnpm build`)
+/dist/
+
+# module federation build scratch space (extension-sdk 8 / @module-federation/vite)
+.__mf__temp/
+
+# Playwright artifacts of a local e2e run
+/test-results/
+/playwright-report/

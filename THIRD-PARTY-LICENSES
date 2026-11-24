@@ -1,0 +1,237 @@
+THIRD-PARTY LICENSES
+====================
+
+Calendar, Contacts & Tasks — an OpenCloud web app (Apache-2.0, see LICENSE).
+
+This distribution (the `dist/` folder and the release zip
+`planner-<version>.zip`) contains third-party code. Every component
+whose code is actually shipped is listed below with its version, license,
+copyright notice, source and the applicable license text.
+
+How this list was produced: the module graph of `pnpm build` was inspected
+(Vite/Rollup build, 245 modules including the virtual federation modules) and the
+emitted CSS was checked for framework output (`grep` for `.ext-` utility classes
+and `--color-` theme variables in `dist/assets/*.css`: 0 matches of either). The
+only third-party code that ends up in `dist/js` and `dist/assets` is what
+section 1 and 2 list. Everything in section 3 is provided by the OpenCloud web
+host at runtime or used only at build time, and is neither bundled nor
+redistributed here.
+
+Contents
+--------
+ 1. Bundled runtime code
+    1.1  ical.js 2.2.1                      MPL-2.0
+    1.2  @event-calendar/core 5.7.1         MIT
+    1.3  svelte 5.56.3                      MIT
+    1.4  clsx 2.1.1                         MIT
+    1.5  esm-env 1.2.2                      MIT
+    1.6  @module-federation/runtime 2.4.0   MIT
+    1.7  @module-federation/runtime-core 2.4.0  MIT
+    1.8  @module-federation/sdk 2.4.0       MIT
+    1.9  @module-federation/error-codes 2.4.0  MIT
+ 2. Bundled stylesheet
+    2.1  @event-calendar/core/index.css     MIT
+ 3. Not bundled
+    3.1  Modules provided by the OpenCloud host   (host licenses apply)
+    3.2  Stylesheets and build tooling            (nothing shipped)
+ 4. License texts
+    4.1  MIT License (full text)
+    4.2  Mozilla Public License 2.0 (notice, full text and source link)
+
+
+1. Bundled runtime code
+-----------------------
+
+1.1  ical.js 2.2.1 — Mozilla Public License 2.0
+    Copyright (C) Philipp Kewisch and ical.js contributors
+    Used for: parsing and writing iCalendar (RFC 5545) and vCard (RFC 6350) data.
+    The library is bundled unmodified (the build only minifies it); no changes
+    were made by this project.
+    Full license text: https://mozilla.org/MPL/2.0/
+    Unmodified source:
+      https://github.com/kewisch/ical.js/tree/v2.2.1
+      https://registry.npmjs.org/ical.js/-/ical.js-2.2.1.tgz
+    See section 4.2 for the required notice.
+
+1.2  @event-calendar/core 5.7.1 — MIT License
+    Copyright (c) 2021 vkurko
+    Used for: the day/week/month/list calendar grid and its interactions.
+    Source: https://github.com/vkurko/calendar (packages/core)
+    Package: https://registry.npmjs.org/@event-calendar/core/-/core-5.7.1.tgz
+    License text: section 4.1
+
+1.3  svelte 5.56.3 — MIT License
+    Copyright (c) 2016-2025 Svelte Contributors
+    (https://github.com/sveltejs/svelte/graphs/contributors)
+    Used for: the runtime that @event-calendar/core is compiled against; it is a
+    transitive dependency of @event-calendar/core 5.7.1 and is bundled with it.
+    Source: https://github.com/sveltejs/svelte
+    Package: https://registry.npmjs.org/svelte/-/svelte-5.56.3.tgz
+    License text: section 4.1
+
+1.4  clsx 2.1.1 — MIT License
+    Copyright (c) Luke Edwards <luke.edwards05@gmail.com> (lukeed.com)
+    Used for: transitive dependency of svelte 5.56.3 (class name helper).
+    Source: https://github.com/lukeed/clsx
+    Package: https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz
+    License text: section 4.1
+
+1.5  esm-env 1.2.2 — MIT License
+    Copyright 2022 Benjamin McCann
+    Used for: transitive dependency of svelte 5.56.3 (build-target detection).
+    Source: https://github.com/benmccann/esm-env
+    Package: https://registry.npmjs.org/esm-env/-/esm-env-1.2.2.tgz
+    License text: section 4.1
+
+1.6  @module-federation/runtime 2.4.0 — MIT License
+    Copyright (c) 2023-present zhouxiao(zhoushaw)
+    Used for: generated module-federation share/remote loader (injected at build
+    time by @module-federation/vite, shipped in dist/js).
+    Source: https://github.com/module-federation/core
+    Package: https://registry.npmjs.org/@module-federation/runtime/-/runtime-2.4.0.tgz
+    License text: section 4.1
+
+1.7  @module-federation/runtime-core 2.4.0 — MIT License
+    Copyright (c) 2023-present zhouxiao(zhoushaw)
+    Source: https://github.com/module-federation/core
+    Package: https://registry.npmjs.org/@module-federation/runtime-core/-/runtime-core-2.4.0.tgz
+    License text: section 4.1
+
+1.8  @module-federation/sdk 2.4.0 — MIT License
+    Copyright (c) 2023-present zhanghang(2heal1)
+    Source: https://github.com/module-federation/core
+    Package: https://registry.npmjs.org/@module-federation/sdk/-/sdk-2.4.0.tgz
+    License text: section 4.1
+
+1.9  @module-federation/error-codes 2.4.0 — MIT License
+    Copyright (c) 2020 ScriptedAlchemy LLC (Zack Jackson) Zhou Shaw (zhouxiao)
+    Source: https://github.com/module-federation/core
+    Package: https://registry.npmjs.org/@module-federation/error-codes/-/error-codes-2.4.0.tgz
+    License text: section 4.1
+
+
+2. Bundled stylesheet
+---------------------
+
+2.1  @event-calendar/core 5.7.1 — CSS (`dist/index.css`) — MIT License
+    Copyright (c) 2021 vkurko
+    The calendar stylesheet is imported by the calendar page and shipped inside
+    `dist/assets/Calendar-*.css`. License text: section 4.1.
+
+    (This is the only third-party stylesheet in the distribution. The app's own
+    CSS - `src/styles/*.css` and the scoped SFC styles - is Apache-2.0, see
+    LICENSE.)
+
+
+3. Not bundled
+--------------
+
+3.1  Modules provided by the OpenCloud host
+-------------------------------------------
+
+The extension is a module-federation remote. These modules are declared as
+shared singletons with `import: false` by `@opencloud-eu/extension-sdk` (see
+`node_modules/@opencloud-eu/extension-sdk/dist/extension-sdk.js`, the
+`externalModules` list) and are additionally forced into the host-provided share
+map by the `alignOpenCloudSharedVersions()` plugin in this repo's
+`vite.config.ts`. They are loaded from the OpenCloud web host at runtime and are
+therefore not part of this distribution:
+
+  vue, luxon, pinia, vue3-gettext,
+  @opencloud-eu/web-pkg, @opencloud-eu/web-pkg/editor,
+  @opencloud-eu/web-client, @opencloud-eu/web-client/graph,
+  @opencloud-eu/web-client/graph/generated, @opencloud-eu/web-client/ocs,
+  @opencloud-eu/web-client/sse, @opencloud-eu/web-client/webdav
+
+Verification: a build of this repository contains 0 modules from `vue`,
+`vue3-gettext` or `@opencloud-eu/web-pkg`/`-web-client`; the generated
+`dist/js/_virtual_mf-localSharedImportMap*.mjs` lists them with
+`shareConfig.import: false`. Their licenses come with the OpenCloud web host
+itself.
+
+3.2  Stylesheets and build tooling (nothing shipped)
+----------------------------------------------------
+
+- tailwindcss 4.3.0 — MIT License (Copyright (c) Tailwind Labs, Inc.)
+  Build-time utility generator (via @tailwindcss/vite). The app uses no utility
+  classes, so no generated utilities are shipped; verified with
+  `grep -c '.ext-' dist/assets/*.css` -> 0.
+  Source: https://github.com/tailwindlabs/tailwindcss
+
+- @opencloud-eu/extension-sdk 7.0.1 — AGPL-3.0 (Copyright (c) OpenCloud GmbH)
+  `src/index.ts` imports `@opencloud-eu/extension-sdk/tailwind.css`. Today that
+  import contributes exactly one 40-byte statement -
+  `@layer theme,base,components,utilities;` - to
+  `dist/assets/web-app-planner-*.css`: no `ext-` utilities and no
+  `--color-*` theme variables are emitted (verified by grepping the built CSS;
+  count of `.ext-` and `--color-` matches: 0 each). No JavaScript of the SDK is
+  bundled. A later change removes the unused import.
+  Source: https://github.com/opencloud-eu/web/tree/main/packages/extension-sdk
+  Full license text: https://www.gnu.org/licenses/agpl-3.0.txt
+
+- Build/dev tooling only (no code shipped): vite, @vitejs/plugin-vue,
+  @module-federation/vite, typescript, vue-tsc, eslint, prettier, vitest,
+  @vue/test-utils, happy-dom, jsdom, playwright, @opencloud-eu/tsconfig,
+  @opencloud-eu/eslint-config, @opencloud-eu/prettier-config.
+
+The application's own source code is licensed under the Apache License 2.0; see
+the LICENSE file in the root of this distribution.
+
+
+4. License texts
+----------------
+
+4.1  MIT License (applies to @event-calendar/core - JS and CSS -, svelte, clsx,
+     esm-env, @module-federation/runtime, @module-federation/runtime-core,
+     @module-federation/sdk, @module-federation/error-codes, tailwindcss)
+
+     The copyright line of each package is listed in sections 1 and 2; the
+     license terms are identical:
+
+     Permission is hereby granted, free of charge, to any person obtaining a copy
+     of this software and associated documentation files (the "Software"), to deal
+     in the Software without restriction, including without limitation the rights
+     to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+     copies of the Software, and to permit persons to whom the Software is
+     furnished to do so, subject to the following conditions:
+
+     The above copyright notice and this permission notice shall be included in all
+     copies or substantial portions of the Software.
+
+     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+     IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+     FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+     AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+     LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+     OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+     SOFTWARE.
+
+
+4.2  Mozilla Public License 2.0 — ical.js 2.2.1
+
+     This Source Code Form is subject to the terms of the Mozilla Public License,
+     v. 2.0. If a copy of the MPL was not distributed with this file, You can
+     obtain one at https://mozilla.org/MPL/2.0/
+
+     Copyright (C) Philipp Kewisch and ical.js contributors.
+
+     The full license text is available at:
+       https://mozilla.org/MPL/2.0/
+       https://www.mozilla.org/media/MPL/2.0/index.815ca599c9df.txt
+
+     Unmodified source code of the bundled version (MPL-2.0 §3.2 requires that
+     the source of the covered software is available where object code is
+     distributed):
+       https://github.com/kewisch/ical.js/tree/v2.2.1
+       https://registry.npmjs.org/ical.js/-/ical.js-2.2.1.tgz
+
+     This project does not modify ical.js. The bundled copy is the published
+     `dist/ical.js` of version 2.2.1, minified by the Vite/esbuild build without
+     semantic changes. To rebuild the exact bundled code from source:
+
+       curl -LO https://registry.npmjs.org/ical.js/-/ical.js-2.2.1.tgz
+       tar xzf ical.js-2.2.1.tgz
+       # package/dist/ical.js is the file that ends up in dist/js/ical-*.mjs
+
+     MPL-2.0 is a file-level copyleft license: it does not affect the licensing of
+     this project's own files, which remain Apache-2.0.

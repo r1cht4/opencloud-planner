@@ -1,0 +1,270 @@
+/**
+ * @event-calendar 5.x design-system overrides for the calendar grid.
+ *
+ * These rules used to sit in the scoped `<style>` block of `Calendar.vue` as
+ * `:deep(.ec-…)` selectors. They style markup that @event-calendar renders, so
+ * they are plain descendant selectors here; every selector stays namespaced
+ * under `.calendar-wrapper`, which only the calendar page renders. Import this
+ * after `@event-calendar/core/index.css` so it wins on equal specificity.
+ */
+
+.calendar-wrapper .ec {
+  --ec-border-color: var(--oc-role-outline-variant, #bfc8cc);
+  --ec-bg-color: var(--oc-role-surface, #fbfcfe);
+  --ec-text-color: var(--oc-role-on-surface, #191c1d);
+  --ec-event-bg-color: var(--oc-role-primary, #00677f);
+  --ec-event-text-color: var(--oc-role-on-primary, #ffffff);
+  --ec-today-bg-color: color-mix(
+    in srgb,
+    var(--oc-role-primary-container, #b7eaff) 30%,
+    var(--oc-role-surface, #fbfcfe)
+  );
+  --ec-highlight-color: var(--oc-role-secondary-container, #d5e4ea);
+  --ec-now-indicator-color: var(--oc-role-error, #ba1a1a);
+  --ec-button-bg-color: var(--oc-role-surface, #fbfcfe);
+  --ec-button-border-color: var(--oc-role-outline-variant, #bfc8cc);
+  --ec-button-text-color: var(--oc-role-on-surface, #191c1d);
+  --ec-button-active-bg-color: var(--oc-role-secondary-container, #d5e4ea);
+  --ec-button-active-border-color: var(--oc-role-primary, #00677f);
+  --ec-button-active-text-color: var(--oc-role-on-secondary-container, #0e1f25);
+  --ec-popup-bg-color: var(--oc-role-surface-container-lowest, #ffffff);
+  --ec-color-300: var(--oc-role-outline-variant, #bfc8cc);
+  --ec-color-200: var(--oc-role-surface-container-low, #f5f6f8);
+  --ec-color-100: var(--oc-role-surface, #fbfcfe);
+  --ec-color-50: var(--oc-role-surface-container-lowest, #ffffff);
+  --ec-color-400: var(--oc-role-outline, #6f797d);
+  color-scheme: inherit;
+  font-family: inherit;
+  font-size: 0.9rem;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* Main grid container — fill height, rounded border */
+.calendar-wrapper .ec-main {
+  flex: 1;
+  min-height: 0;
+  border-radius: 0 0 12px 12px;
+  border-color: var(--oc-role-outline-variant, #bfc8cc);
+}
+
+/* Toolbar */
+.calendar-wrapper .ec-toolbar {
+  padding: 12px 16px;
+  margin-block-end: 0;
+  background: var(--oc-role-surface-container-low, #f5f6f8);
+  border: 1px solid var(--oc-role-outline-variant, #bfc8cc);
+  border-radius: 12px 12px 0 0;
+}
+
+.calendar-wrapper .ec-title {
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Buttons */
+.calendar-wrapper .ec-button {
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  padding: 6px 12px;
+  transition:
+    background-color 0.15s,
+    border-color 0.15s;
+}
+.calendar-wrapper .ec-button-group .ec-button:not(:first-child) {
+  border-start-start-radius: 0;
+  border-end-start-radius: 0;
+}
+.calendar-wrapper .ec-button-group .ec-button:not(:last-child) {
+  border-start-end-radius: 0;
+  border-end-end-radius: 0;
+}
+.calendar-wrapper .ec-button-group .ec-button:first-child {
+  border-start-start-radius: 8px;
+  border-end-start-radius: 8px;
+}
+.calendar-wrapper .ec-button-group .ec-button:last-child {
+  border-start-end-radius: 8px;
+  border-end-end-radius: 8px;
+}
+
+/* Header (sticky) — needs solid background so events don't bleed through */
+.calendar-wrapper .ec-header {
+  z-index: 3;
+}
+.calendar-wrapper .ec-col-head,
+.calendar-wrapper .ec-col-group {
+  background-color: var(--oc-role-surface-container-low, #f5f6f8);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: var(--oc-role-on-surface-variant, #40484c);
+}
+
+/* All-day area — also needs solid background */
+.calendar-wrapper .ec-all-day {
+  background-color: var(--oc-role-surface, #fbfcfe);
+}
+
+/* Sidebar */
+.calendar-wrapper .ec-sidebar {
+  color: var(--oc-role-on-surface-variant, #40484c);
+  background-color: var(--oc-role-surface, #fbfcfe);
+}
+
+/* Events */
+.calendar-wrapper .ec-event {
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 0.8rem;
+  padding: 3px 6px;
+  transition: box-shadow 0.15s;
+}
+.calendar-wrapper .ec-event:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+.calendar-wrapper .ec-event-title {
+  color: inherit;
+  font-weight: 600;
+}
+.calendar-wrapper .ec-event-time {
+  color: inherit;
+}
+
+/* Short timed events: no room for a time line, so drop it and give the title
+   the whole block. `--tiny` shrinks the type for the shortest slots. */
+.calendar-wrapper .ec-event--compact {
+  padding: 2px 5px;
+}
+.calendar-wrapper .ec-event--compact .ec-event-time {
+  display: none;
+}
+.calendar-wrapper .ec-event--compact .ec-event-title {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  position: static;
+}
+.calendar-wrapper .ec-event--tiny {
+  padding: 0 4px;
+  align-items: center;
+}
+.calendar-wrapper .ec-event--tiny .ec-event-title {
+  font-size: 0.68rem;
+  line-height: 1.1;
+}
+
+/* Draggable cursor */
+.calendar-wrapper .ec-draggable {
+  cursor: grab;
+}
+.calendar-wrapper .ec-draggable:active {
+  cursor: grabbing;
+}
+
+/* Popup */
+.calendar-wrapper .ec-popup {
+  border-radius: 12px;
+  border-color: var(--oc-role-outline-variant, #bfc8cc);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+/* Stacked overlapping events ("+N") */
+.calendar-wrapper .ec-event--stack {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.16) 0,
+    rgba(255, 255, 255, 0.16) 6px,
+    transparent 6px,
+    transparent 12px
+  );
+  cursor: pointer;
+}
+/* Week numbers */
+.calendar-wrapper .ec-week-number {
+  font-size: 0.7rem;
+  color: var(--oc-role-on-surface-variant, #40484c);
+  opacity: 0.7;
+}
+
+/* List view */
+.calendar-wrapper .ec-list .ec-day-head {
+  font-weight: 600;
+}
+.calendar-wrapper .ec-list .ec-event {
+  border-block-end: 1px solid var(--oc-role-outline-variant, #bfc8cc);
+}
+
+@media (max-width: 640px) {
+  /* 4. Event-calendar toolbar: wrap onto multiple rows and shrink the
+     view-switcher buttons (Month/Week/Day/Agenda) so they stop overflowing */
+  .calendar-wrapper .ec-toolbar {
+    padding: 8px;
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 8px;
+    row-gap: 8px;
+  }
+  .calendar-wrapper .ec-start {
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: start;
+    margin-inline-start: 4px;
+  }
+  .calendar-wrapper .ec-center {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: center;
+    min-width: 0;
+    text-align: center;
+  }
+  .calendar-wrapper .ec-end {
+    display: contents;
+  }
+  .calendar-wrapper .ec-end > .ec-today {
+    grid-column: 3;
+    grid-row: 1;
+    justify-self: end;
+    margin-inline-end: 4px;
+  }
+  .calendar-wrapper .ec-end > .ec-button-group {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    justify-self: center;
+  }
+  .calendar-wrapper .ec-button {
+    padding: 5px 8px;
+    font-size: 0.8rem;
+  }
+  .calendar-wrapper .ec-title {
+    font-size: 0.95rem;
+    padding-top: 4px;
+    line-height: 1.25;
+  }
+}
+
+/* Touch aids — coarse pointers only (finger/stylus), never the mouse.
+   The library's own resize handles are 8px deep at most (50% of the event edge,
+   capped), which no fingertip can hit; 16px still leaves the event body
+   draggable and the handle itself is invisible either way. No `touch-action`
+   here: swiping must keep scrolling the time grid. */
+@media (pointer: coarse) {
+  .calendar-wrapper .ec-time-grid .ec-body .ec-resizer {
+    block-size: 50%;
+    max-block-size: 16px;
+  }
+  .calendar-wrapper .ec-day-grid .ec-resizer,
+  .calendar-wrapper .ec-all-day .ec-resizer {
+    inline-size: 50%;
+    max-inline-size: 16px;
+  }
+
+  /* A 350 ms hold is the drag gesture, not a text selection: keep the mobile
+     long-press callout/magnifier out of it. */
+  .calendar-wrapper .ec-event,
+  .calendar-wrapper .ec-day,
+  .calendar-wrapper .ec-all-day {
+    -webkit-touch-callout: none;
+  }
+}

@@ -1,0 +1,4 @@
+planner:
+  config:
+    caldavUrl: 'https://host.docker.internal:9200/caldav'
+    carddavUrl: 'https://host.docker.internal:9200/carddav'

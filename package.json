@@ -1,0 +1,67 @@
+{
+  "name": "opencloud-planner",
+  "version": "1.0.0",
+  "displayName": "Planner",
+  "description": "Planner — calendar, contacts and tasks for OpenCloud, backed by CalDAV/CardDAV (Radicale).",
+  "keywords": [
+    "opencloud",
+    "web-extension",
+    "calendar",
+    "contacts",
+    "tasks",
+    "caldav",
+    "carddav",
+    "radicale"
+  ],
+  "license": "Apache-2.0",
+  "author": "Jonas Richter (https://github.com/r1cht4)",
+  "private": true,
+  "homepage": "https://github.com/r1cht4/opencloud-planner#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r1cht4/opencloud-planner.git"
+  },
+  "bugs": {
+    "url": "https://github.com/r1cht4/opencloud-planner/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "vite build",
+    "build:w": "vite build --watch --mode development",
+    "l10n:extract": "vue-gettext-extract --config gettext.config.cjs",
+    "l10n:compile": "vue-gettext-compile --config gettext.config.cjs",
+    "l10n:check": "node scripts/check-l10n.mjs",
+    "check:types": "vue-tsc --noEmit",
+    "lint": "eslint 'src/**/*.{js,ts,vue}' --color",
+    "format:check": "prettier . --check",
+    "format:write": "prettier . --write",
+    "test:e2e": "playwright test",
+    "test:unit": "NODE_OPTIONS=--unhandled-rejections=throw vitest"
+  },
+  "devDependencies": {
+    "@opencloud-eu/eslint-config": "^8.3.0",
+    "@opencloud-eu/extension-sdk": "^8.3.0",
+    "@opencloud-eu/prettier-config": "^8.3.0",
+    "@opencloud-eu/tsconfig": "^8.3.0",
+    "@opencloud-eu/web-pkg": "^8.3.0",
+    "@playwright/test": "^1.60.0",
+    "@types/node": "^24.0.0",
+    "@vue/test-utils": "^2.4.6",
+    "eslint": "^9.39.5",
+    "happy-dom": "^21.0.4",
+    "jsdom": "^31.0.1",
+    "prettier": "^3.10.1",
+    "typescript": "^6.0.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1",
+    "vue": "^3.5.46",
+    "vue-router": "^5.5.1",
+    "vue-tsc": "^3.3.14",
+    "vue3-gettext": "4.0.1"
+  },
+  "dependencies": {
+    "@event-calendar/core": "^5.7.1",
+    "ical.js": "^2.1.0"
+  },
+  "packageManager": "pnpm@10.18.1"
+}

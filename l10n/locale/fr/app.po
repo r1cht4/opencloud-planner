@@ -1,0 +1,2152 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: planner\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: src/components/calendar/EventDialog.vue:19
+msgid "(untitled)"
+msgstr "(sans titre)"
+
+#: src/components/calendar/EventDialog.vue:21
+msgid "Edit event"
+msgstr "Modifier l'événement"
+
+#: src/components/calendar/EventDialog.vue:22 src/views/Calendar.vue:39
+msgid "New event"
+msgstr "Nouvel événement"
+
+#: src/components/calendar/EventDialog.vue:28 src/views/Contacts.vue:105
+msgid "Close"
+msgstr "Fermer"
+
+#: src/components/calendar/EventDialog.vue:38
+#: src/components/ImportDialog.vue:52 src/components/tasks/TaskDialog.vue:70
+#: src/components/tools/BackupCard.vue:183
+#: src/components/tools/CalendarToolsCard.vue:10
+#: src/components/tools/DuplicateEventsCard.vue:21
+#: src/composables/useImport.ts:180 src/composables/useTasksView.ts:211
+#: src/index.ts:188 src/views/Calendar.vue:6 src/views/Settings.vue:121
+#: src/views/Tasks.vue:54
+msgid "Calendar"
+msgstr "Calendrier"
+
+#: src/components/calendar/EventDialog.vue:49
+#: src/components/tasks/TaskDialog.vue:34
+msgid "Title"
+msgstr "Titre"
+
+#: src/components/calendar/EventDialog.vue:60
+#: src/components/calendar/StackPopover.vue:49
+msgid "All day"
+msgstr "Toute la journée"
+
+#: src/components/calendar/EventDialog.vue:65
+msgid "Start"
+msgstr "Début"
+
+#: src/components/calendar/EventDialog.vue:84
+msgid "End"
+msgstr "Fin"
+
+#: src/components/calendar/EventDialog.vue:103
+msgid "End must be after start"
+msgstr "La fin doit être après le début"
+
+#: src/components/calendar/EventDialog.vue:109
+msgid "Repeat"
+msgstr "Répétition"
+
+#: src/components/calendar/EventDialog.vue:111
+msgid "No repeat"
+msgstr "Pas de répétition"
+
+#: src/components/calendar/EventDialog.vue:112
+msgid "Daily"
+msgstr "Quotidien"
+
+#: src/components/calendar/EventDialog.vue:113
+msgid "Weekly"
+msgstr "Hebdomadaire"
+
+#: src/components/calendar/EventDialog.vue:114
+msgid "Monthly"
+msgstr "Mensuel"
+
+#: src/components/calendar/EventDialog.vue:115
+msgid "Yearly"
+msgstr "Annuel"
+
+#: src/components/calendar/EventDialog.vue:120
+#: src/components/settings/GeneralSettings.vue:273
+msgid "Reminders"
+msgstr "Rappels"
+
+#: src/components/calendar/EventDialog.vue:126
+msgid "Reminder"
+msgstr "Rappel"
+
+#: src/components/calendar/EventDialog.vue:128
+msgid "At time of event"
+msgstr "Au moment de l'événement"
+
+#: src/components/calendar/EventDialog.vue:129
+msgid "5 minutes before"
+msgstr "5 minutes avant"
+
+#: src/components/calendar/EventDialog.vue:130
+#: src/components/settings/TasksSettings.vue:96
+msgid "15 minutes before"
+msgstr "15 minutes avant"
+
+#: src/components/calendar/EventDialog.vue:131
+msgid "30 minutes before"
+msgstr "30 minutes avant"
+
+#: src/components/calendar/EventDialog.vue:132
+#: src/components/settings/BirthdaysSettings.vue:143
+#: src/components/settings/CalendarSettings.vue:231
+#: src/components/settings/TasksSettings.vue:97
+msgid "1 hour before"
+msgstr "1 heure avant"
+
+#: src/components/calendar/EventDialog.vue:133
+#: src/components/settings/BirthdaysSettings.vue:144
+#: src/components/settings/CalendarSettings.vue:234
+#: src/components/settings/TasksSettings.vue:98
+msgid "1 day before"
+msgstr "1 jour avant"
+
+#: src/components/calendar/EventDialog.vue:139
+msgid "Remove reminder"
+msgstr "Supprimer le rappel"
+
+#: src/components/calendar/EventDialog.vue:146
+#: src/components/settings/BirthdaysSettings.vue:141
+#: src/components/settings/TasksSettings.vue:94
+msgid "No reminder"
+msgstr "Pas de rappel"
+
+#: src/components/calendar/EventDialog.vue:150
+msgid "Add reminder"
+msgstr "Ajouter un rappel"
+
+#: src/components/calendar/EventDialog.vue:155
+#: src/components/calendar/EventDialog.vue:158
+#: src/components/tasks/TaskDialog.vue:35
+msgid "Description"
+msgstr "Description"
+
+#: src/components/calendar/EventDialog.vue:162
+msgid "Location"
+msgstr "Lieu"
+
+#: src/components/calendar/EventDialog.vue:170
+msgid "Organizer"
+msgstr "Organisateur"
+
+#: src/components/calendar/EventDialog.vue:183
+msgid "Participants"
+msgstr "Participants"
+
+#: src/components/calendar/EventDialog.vue:205
+msgid "Participants are managed in the inviting calendar client."
+msgstr ""
+"Les participants sont gérés dans le client de calendrier qui a envoyé "
+"l'invitation."
+
+#: src/components/calendar/EventDialog.vue:217
+#: src/components/calendar/EventDialog.vue:232
+#: src/components/CollectionsCard.vue:44 src/components/CollectionsCard.vue:47
+#: src/components/CollectionsCard.vue:92 src/components/CollectionsCard.vue:99
+#: src/components/CollectionsCard.vue:349 src/components/ContactDetail.vue:33
+#: src/components/tasks/TaskDialog.vue:87
+#: src/composables/useContactsView.ts:273
+#: src/composables/useEventActions.ts:336 src/composables/useTasksView.ts:411
+msgid "Delete"
+msgstr "Supprimer"
+
+#: src/components/calendar/EventDialog.vue:221
+#: src/components/ContactDetail.vue:29
+msgid "Edit"
+msgstr "Modifier"
+
+#: src/components/calendar/EventDialog.vue:236
+#: src/components/calendar/MoveConfirmDialog.vue:31
+#: src/components/calendar/RecurrenceScopeDialog.vue:35
+#: src/components/CollectionsCard.vue:152
+#: src/components/contacts/ContactDialog.vue:216
+#: src/components/ImportDialog.vue:81 src/components/tasks/TaskDialog.vue:91
+#: src/components/tools/BackupCard.vue:110
+#: src/components/tools/ContactsToolsCard.vue:133
+#: src/components/tools/CsvDialog.vue:115
+#: src/components/tools/CsvDialog.vue:152
+#: src/components/tools/DuplicateEventsDialog.vue:65
+msgid "Cancel"
+msgstr "Annuler"
+
+#: src/components/calendar/EventDialog.vue:244
+#: src/components/CollectionsCard.vue:160
+#: src/components/contacts/ContactDialog.vue:219
+#: src/components/tasks/TaskDialog.vue:99
+msgid "Save"
+msgstr "Enregistrer"
+
+#: src/components/calendar/EventSearch.vue:7
+#: src/components/calendar/EventSearch.vue:8
+#: src/components/calendar/EventSearch.vue:23
+#: src/components/calendar/EventSearch.vue:24
+msgid "Search events"
+msgstr "Rechercher des événements"
+
+#: src/components/calendar/EventSearch.vue:36
+#: src/components/calendar/EventSearch.vue:37 src/views/Contacts.vue:35
+msgid "Clear search"
+msgstr "Effacer la recherche"
+
+#: src/components/calendar/EventSearch.vue:49
+msgid "Search results"
+msgstr "Résultats de recherche"
+
+#: src/components/calendar/EventSearch.vue:75
+msgid "No matching events in the loaded period."
+msgstr "Aucun événement correspondant dans la période chargée."
+
+#: src/components/calendar/EventSearch.vue:78
+msgid "Search covers the loaded period (view ±6 months)."
+msgstr "La recherche couvre la période chargée (vue ±6 mois)."
+
+#: src/components/calendar/MoveConfirmDialog.vue:11
+msgid "Move event"
+msgstr "Déplacer l'événement"
+
+#: src/components/calendar/MoveConfirmDialog.vue:15
+msgid "From"
+msgstr "De"
+
+#: src/components/calendar/MoveConfirmDialog.vue:23
+msgid "To"
+msgstr "À"
+
+#: src/components/calendar/MoveConfirmDialog.vue:39
+msgid "Move"
+msgstr "Déplacer"
+
+#: src/components/calendar/RecurrenceScopeDialog.vue:14
+msgid "Delete recurring event"
+msgstr "Supprimer l'événement récurrent"
+
+#: src/components/calendar/RecurrenceScopeDialog.vue:16
+msgid "Move recurring event"
+msgstr "Déplacer l'événement récurrent"
+
+#: src/components/calendar/RecurrenceScopeDialog.vue:17
+msgid "Update recurring event"
+msgstr "Mettre à jour l'événement récurrent"
+
+#: src/components/calendar/RecurrenceScopeDialog.vue:23
+msgid "Do you want to delete only this event or the entire series?"
+msgstr "Voulez-vous supprimer uniquement cet événement ou toute la série ?"
+
+#: src/components/calendar/RecurrenceScopeDialog.vue:25
+msgid "Do you want to move only this event or the entire series?"
+msgstr "Voulez-vous déplacer uniquement cet événement ou toute la série ?"
+
+#: src/components/calendar/RecurrenceScopeDialog.vue:26
+msgid "Do you want to update only this event or the entire series?"
+msgstr "Voulez-vous mettre à jour uniquement cet événement ou toute la série ?"
+
+#: src/components/calendar/RecurrenceScopeDialog.vue:31
+msgid "Only this event"
+msgstr "Uniquement cet événement"
+
+#: src/components/calendar/RecurrenceScopeDialog.vue:38
+msgid "Entire series"
+msgstr "Toute la série"
+
+#: src/components/CollectionsCard.vue:6
+#: src/components/settings/AboutStatus.vue:22
+msgid "Calendars"
+msgstr "Calendriers"
+
+#: src/components/CollectionsCard.vue:9 src/components/CollectionsCard.vue:217
+msgid "New calendar"
+msgstr "Nouveau calendrier"
+
+#: src/components/CollectionsCard.vue:13
+msgid "No calendars found."
+msgstr "Aucun calendrier trouvé."
+
+#: src/components/CollectionsCard.vue:20
+#: src/components/settings/BirthdaysSettings.vue:22
+msgid "Birthday calendar"
+msgstr "Calendrier des anniversaires"
+
+#: src/components/CollectionsCard.vue:27 src/components/CollectionsCard.vue:28
+#: src/components/CollectionsCard.vue:138
+#: src/components/CollectionsCard.vue:143
+msgid "Color"
+msgstr "Couleur"
+
+#: src/components/CollectionsCard.vue:34 src/components/CollectionsCard.vue:35
+#: src/components/CollectionsCard.vue:82 src/components/CollectionsCard.vue:83
+msgid "Rename"
+msgstr "Renommer"
+
+#: src/components/CollectionsCard.vue:45 src/components/CollectionsCard.vue:47
+#: src/components/CollectionsCard.vue:58
+msgid "At least one calendar must remain."
+msgstr "Au moins un calendrier doit être conservé."
+
+#: src/components/CollectionsCard.vue:65
+#: src/components/settings/AboutStatus.vue:27
+msgid "Address books"
+msgstr "Carnets d'adresses"
+
+#: src/components/CollectionsCard.vue:68 src/components/CollectionsCard.vue:219
+msgid "New address book"
+msgstr "Nouveau carnet d'adresses"
+
+#: src/components/CollectionsCard.vue:72
+msgid "No address books found."
+msgstr "Aucun carnet d'adresses trouvé."
+
+#: src/components/CollectionsCard.vue:94 src/components/CollectionsCard.vue:98
+#: src/components/CollectionsCard.vue:110
+msgid "At least one address book must remain."
+msgstr "Au moins un carnet d'adresses doit être conservé."
+
+#: src/components/CollectionsCard.vue:127
+#: src/components/CollectionsCard.vue:132 src/components/ImportDialog.vue:72
+#: src/components/ImportDialog.vue:73 src/components/tools/BackupCard.vue:98
+#: src/components/tools/CsvDialog.vue:107
+msgid "Name"
+msgstr "Nom"
+
+#: src/components/CollectionsCard.vue:147
+msgid "Saving…"
+msgstr "Enregistrement…"
+
+#: src/components/CollectionsCard.vue:160
+#: src/components/contacts/ContactDialog.vue:98
+#: src/components/contacts/ContactDialog.vue:136
+#: src/components/contacts/ContactDialog.vue:185 src/views/Tasks.vue:65
+msgid "Add"
+msgstr "Ajouter"
+
+#: src/components/CollectionsCard.vue:222
+msgid "Rename address book"
+msgstr "Renommer le carnet d'adresses"
+
+#: src/components/CollectionsCard.vue:223
+msgid "Rename calendar"
+msgstr "Renommer le calendrier"
+
+#: src/components/CollectionsCard.vue:287
+msgid "Calendar renamed"
+msgstr "Calendrier renommé"
+
+#: src/components/CollectionsCard.vue:287
+msgid "Address book renamed"
+msgstr "Carnet d'adresses renommé"
+
+#: src/components/CollectionsCard.vue:291
+msgid "Calendar created"
+msgstr "Calendrier créé"
+
+#: src/components/CollectionsCard.vue:294
+msgid "Address book created"
+msgstr "Carnet d'adresses créé"
+
+#: src/components/CollectionsCard.vue:305
+msgid "Could not rename address book"
+msgstr "Impossible de renommer le carnet d'adresses"
+
+#: src/components/CollectionsCard.vue:306
+msgid "Could not rename calendar"
+msgstr "Impossible de renommer le calendrier"
+
+#: src/components/CollectionsCard.vue:309 src/composables/useImport.ts:243
+msgid "Could not create address book"
+msgstr "Impossible de créer le carnet d'adresses"
+
+#: src/components/CollectionsCard.vue:311 src/composables/useImport.ts:242
+msgid "Could not create calendar"
+msgstr "Impossible de créer le calendrier"
+
+#: src/components/CollectionsCard.vue:324
+msgid "Calendar color updated"
+msgstr "Couleur du calendrier mise à jour"
+
+#: src/components/CollectionsCard.vue:330
+msgid "Could not change calendar color"
+msgstr "Impossible de modifier la couleur du calendrier"
+
+#: src/components/CollectionsCard.vue:338
+msgid "Delete calendar"
+msgstr "Supprimer le calendrier"
+
+#: src/components/CollectionsCard.vue:338
+msgid "Delete address book"
+msgstr "Supprimer le carnet d'adresses"
+
+#: src/components/CollectionsCard.vue:341
+msgid ""
+"Do you want to delete the calendar \"%{name}\"? All events in it will be "
+"deleted permanently."
+msgstr ""
+"Voulez-vous supprimer le calendrier « %{name} » ? Tous ses événements seront "
+"définitivement supprimés."
+
+#: src/components/CollectionsCard.vue:345
+msgid ""
+"Do you want to delete the address book \"%{name}\"? All contacts in it will "
+"be deleted permanently."
+msgstr ""
+"Voulez-vous supprimer le carnet d'adresses « %{name} » ? Tous ses contacts "
+"seront définitivement supprimés."
+
+#: src/components/CollectionsCard.vue:358
+msgid "Could not delete calendar"
+msgstr "Impossible de supprimer le calendrier"
+
+#: src/components/CollectionsCard.vue:359
+msgid "Could not delete address book"
+msgstr "Impossible de supprimer le carnet d'adresses"
+
+#: src/components/CollectionsCard.vue:369
+msgid "Birthday sync turned off"
+msgstr "Synchronisation des anniversaires désactivée"
+
+#: src/components/CollectionsCard.vue:373
+msgid "Calendar deleted"
+msgstr "Calendrier supprimé"
+
+#: src/components/CollectionsCard.vue:373
+msgid "Address book deleted"
+msgstr "Carnet d'adresses supprimé"
+
+#: src/components/ConnectDevices.vue:11 src/components/ConnectDevices.vue:15
+#: src/components/SetupState.vue:34
+msgid "Copy"
+msgstr "Copier"
+
+#: src/components/ConnectDevices.vue:22
+msgid ""
+"Clients that support auto-discovery only need %{origin} — it is served via "
+"%{caldav} and %{carddav}."
+msgstr ""
+"Les clients qui prennent en charge la découverte automatique n'ont besoin "
+"que de %{origin} — fourni via %{caldav} et %{carddav}."
+
+#: src/components/ConnectDevices.vue:32
+msgid ""
+"Native apps must sign in with an app token, never with your OpenCloud "
+"password."
+msgstr ""
+"Les applications natives se connectent avec un jeton d'application, jamais "
+"avec votre mot de passe OpenCloud."
+
+#: src/components/ConnectDevices.vue:37
+msgid "Create an app token"
+msgstr "Créer un jeton d'application"
+
+#: src/components/ConnectDevices.vue:39
+msgid "You find it in your account settings under App Tokens."
+msgstr "Vous le trouverez dans les paramètres du compte, sous App Tokens."
+
+#: src/components/ConnectDevices.vue:45
+msgid "Android (DAVx5)"
+msgstr "Android (DAVx5)"
+
+#: src/components/ConnectDevices.vue:48
+msgid ""
+"Add an account with \"Login with URL and user name\", use the CalDAV URL "
+"above as the base URL, and your app token as the password."
+msgstr ""
+"Ajoutez un compte avec « Connexion avec URL et nom d'utilisateur », utilisez "
+"l'adresse CalDAV ci-dessus comme URL de base et votre jeton d'application "
+"comme mot de passe."
+
+#: src/components/ConnectDevices.vue:56
+msgid "Thunderbird"
+msgstr "Thunderbird"
+
+#: src/components/ConnectDevices.vue:59
+msgid ""
+"Create a new CalDAV calendar or CardDAV address book and use %{origin} as "
+"the location."
+msgstr ""
+"Créez un nouveau calendrier CalDAV ou carnet d'adresses CardDAV et utilisez "
+"%{origin} comme adresse."
+
+#: src/components/ConnectDevices.vue:68
+msgid "iOS and macOS"
+msgstr "iOS et macOS"
+
+#: src/components/ConnectDevices.vue:71
+msgid ""
+"Settings → Calendar → Accounts → Other → Add CalDAV Account: server %{host}, "
+"your username and app token. Add the CardDAV account the same way under "
+"Contacts."
+msgstr ""
+"Réglages → Calendrier → Comptes → Autre → Ajouter un compte CalDAV : serveur "
+"%{host}, votre nom d'utilisateur et votre jeton d'application. Ajoutez le "
+"compte CardDAV de la même manière dans Contacts."
+
+#: src/components/ConnectDevices.vue:138
+msgid "CalDAV URL"
+msgstr "Adresse CalDAV"
+
+#: src/components/ConnectDevices.vue:139
+msgid "CardDAV URL"
+msgstr "Adresse CardDAV"
+
+#: src/components/ConnectDevices.vue:142
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: src/components/ConnectDevices.vue:173
+msgid "Copied to clipboard"
+msgstr "Copié dans le presse-papiers"
+
+#: src/components/ConnectDevices.vue:181 src/components/ConnectDevices.vue:182
+#: src/components/settings/AboutStatus.vue:315
+#: src/components/SetupState.vue:183
+msgid "Press Ctrl+C to copy the selected text."
+msgstr "Appuyez sur Ctrl+C pour copier le texte sélectionné."
+
+#: src/components/ConnectionGate.vue:4
+msgid "Checking the calendar server…"
+msgstr "Vérification du serveur de calendrier…"
+
+#: src/components/ContactDetail.vue:40
+#: src/components/contacts/ContactDialog.vue:67
+#: src/components/contacts/ContactDialog.vue:82
+#: src/components/tools/CsvDialog.vue:282
+#: src/components/tools/CsvDialog.vue:288
+#: src/components/tools/useContactsTools.ts:223
+msgid "Email"
+msgstr "E-mail"
+
+#: src/components/ContactDetail.vue:49
+#: src/components/contacts/ContactDialog.vue:103
+#: src/components/contacts/ContactDialog.vue:120
+#: src/components/tools/CsvDialog.vue:284
+#: src/components/tools/CsvDialog.vue:289
+#: src/components/tools/useContactsTools.ts:229
+msgid "Phone"
+msgstr "Téléphone"
+
+#: src/components/ContactDetail.vue:58
+#: src/components/contacts/ContactDialog.vue:146
+#: src/components/tools/useContactsTools.ts:235
+msgid "Address"
+msgstr "Adresse"
+
+#: src/components/ContactDetail.vue:74
+#: src/components/contacts/ContactDialog.vue:196
+#: src/components/tools/CsvDialog.vue:278
+#: src/components/tools/useContactsTools.ts:249
+msgid "Birthday"
+msgstr "Anniversaire"
+
+#: src/components/ContactDetail.vue:82
+#: src/components/contacts/ContactDialog.vue:211
+#: src/components/tools/CsvDialog.vue:280
+#: src/components/tools/useContactsTools.ts:257
+msgid "Notes"
+msgstr "Notes"
+
+#: src/components/contacts/ContactDialog.vue:27
+msgid "Edit contact"
+msgstr "Modifier le contact"
+
+#: src/components/contacts/ContactDialog.vue:27 src/views/Contacts.vue:25
+msgid "New contact"
+msgstr "Nouveau contact"
+
+#: src/components/contacts/ContactDialog.vue:33
+#: src/components/settings/ContactsSettings.vue:42
+#: src/components/tools/CsvDialog.vue:270
+msgid "First name"
+msgstr "Prénom"
+
+#: src/components/contacts/ContactDialog.vue:34
+#: src/components/settings/ContactsSettings.vue:41
+#: src/components/tools/CsvDialog.vue:272
+msgid "Last name"
+msgstr "Nom"
+
+#: src/components/contacts/ContactDialog.vue:51
+msgid "Upload photo"
+msgstr "Téléverser une photo"
+
+#: src/components/contacts/ContactDialog.vue:61
+#: src/components/contacts/ContactDialog.vue:163
+msgid "Remove"
+msgstr "Supprimer"
+
+#: src/components/contacts/ContactDialog.vue:74
+#: src/components/contacts/ContactDialog.vue:112
+#: src/components/contacts/ContactDialog.vue:156
+msgid "Work"
+msgstr "Travail"
+
+#: src/components/contacts/ContactDialog.vue:75
+#: src/components/contacts/ContactDialog.vue:111
+#: src/components/contacts/ContactDialog.vue:155
+msgid "Home"
+msgstr "Domicile"
+
+#: src/components/contacts/ContactDialog.vue:76
+#: src/components/contacts/ContactDialog.vue:114
+#: src/components/contacts/ContactDialog.vue:157
+msgid "Other"
+msgstr "Autre"
+
+#: src/components/contacts/ContactDialog.vue:110
+msgid "Mobile"
+msgstr "Mobile"
+
+#: src/components/contacts/ContactDialog.vue:113
+msgid "Fax"
+msgstr "Fax"
+
+#: src/components/contacts/ContactDialog.vue:141
+#: src/components/tools/CsvDialog.vue:274
+#: src/components/tools/useContactsTools.ts:241
+msgid "Organization"
+msgstr "Organisation"
+
+#: src/components/contacts/ContactDialog.vue:142
+#: src/components/tools/CsvDialog.vue:276
+#: src/components/tools/useContactsTools.ts:245
+msgid "Job title"
+msgstr "Poste"
+
+#: src/components/contacts/ContactDialog.vue:169
+msgid "Street"
+msgstr "Rue"
+
+#: src/components/contacts/ContactDialog.vue:171
+msgid "Postal code"
+msgstr "Code postal"
+
+#: src/components/contacts/ContactDialog.vue:172
+msgid "City"
+msgstr "Ville"
+
+#: src/components/contacts/ContactDialog.vue:175
+msgid "Region"
+msgstr "Région"
+
+#: src/components/contacts/ContactDialog.vue:176
+msgid "Country"
+msgstr "Pays"
+
+#: src/components/contacts/ContactDialog.vue:192
+#: src/components/tools/useContactsTools.ts:263
+msgid "Categories"
+msgstr "Catégories"
+
+#: src/components/contacts/ContactDialog.vue:193
+msgid "e.g. Family, Work"
+msgstr "ex. Famille, Travail"
+
+#: src/components/contacts/ContactDialog.vue:203
+msgid "Birthday without year (%{date}) is kept. Pick a date to add a year."
+msgstr ""
+"L'anniversaire sans année (%{date}) est conservé. Choisissez une date pour "
+"ajouter une année."
+
+#: src/components/contacts/ContactDialog.vue:395
+msgid "Photo must be JPEG, PNG, GIF, or WebP and under 1 MB"
+msgstr ""
+"La photo doit être au format JPEG, PNG, GIF ou WebP et faire moins de 1 Mo."
+
+#: src/components/ImportDialog.vue:19
+msgid "%{count} event in this file"
+msgid_plural "%{count} events in this file"
+msgstr[0] "%{count} événement dans ce fichier"
+msgstr[1] "%{count} événements dans ce fichier"
+
+#: src/components/ImportDialog.vue:25 src/components/tools/CsvDialog.vue:45
+msgid "%{count} contact in this file"
+msgid_plural "%{count} contacts in this file"
+msgstr[0] "%{count} contact dans ce fichier"
+msgstr[1] "%{count} contacts dans ce fichier"
+
+#: src/components/ImportDialog.vue:34 src/components/tools/CsvDialog.vue:85
+msgid "Import target"
+msgstr "Cible de l'import"
+
+#: src/components/ImportDialog.vue:45
+msgid "Into an existing calendar"
+msgstr "Dans un calendrier existant"
+
+#: src/components/ImportDialog.vue:46 src/components/tools/CsvDialog.vue:88
+msgid "Into an existing address book"
+msgstr "Dans un carnet d'adresses existant"
+
+#: src/components/ImportDialog.vue:52 src/components/tools/BackupCard.vue:183
+#: src/components/tools/ContactsCsvCard.vue:22
+#: src/components/tools/ContactsToolsCard.vue:11
+#: src/components/tools/ContactsToolsCard.vue:60
+#: src/components/tools/CsvDialog.vue:96 src/views/Contacts.vue:15
+msgid "Address book"
+msgstr "Carnet d'adresses"
+
+#: src/components/ImportDialog.vue:64
+msgid "Into a new calendar"
+msgstr "Dans un nouveau calendrier"
+
+#: src/components/ImportDialog.vue:65 src/components/tools/CsvDialog.vue:90
+msgid "Into a new address book"
+msgstr "Dans un nouveau carnet d'adresses"
+
+#: src/components/ImportDialog.vue:89 src/components/tools/CsvDialog.vue:123
+msgid "Importing…"
+msgstr "Import en cours…"
+
+#: src/components/ImportDialog.vue:89 src/components/tools/CsvDialog.vue:123
+msgid "Import"
+msgstr "Importer"
+
+#: src/components/ImportDialog.vue:168
+#: src/composables/useFileImportActions.ts:159
+msgid "Import events"
+msgstr "Importer des événements"
+
+#: src/components/ImportDialog.vue:168
+#: src/composables/useFileImportActions.ts:159
+msgid "Import contacts"
+msgstr "Importer des contacts"
+
+#: src/components/ImportDialog.vue:220
+msgid "Open Calendar to see the imported events."
+msgstr "Ouvrez le calendrier pour voir les événements importés."
+
+#: src/components/ImportDialog.vue:221
+msgid "Open Contacts to see the imported contacts."
+msgstr "Ouvrez les contacts pour voir les contacts importés."
+
+#: src/components/PageHeaderActions.vue:5
+#: src/components/PageHeaderActions.vue:6 src/index.ts:220
+#: src/views/Settings.vue:4
+msgid "Settings"
+msgstr "Paramètres"
+
+#: src/components/ScrollTime.vue:9
+msgid "Hours"
+msgstr "Heures"
+
+#: src/components/ScrollTime.vue:27
+msgid "Minutes"
+msgstr "Minutes"
+
+#: src/components/settings/AboutStatus.vue:5
+msgid "Connection"
+msgstr "Connexion"
+
+#: src/components/settings/AboutStatus.vue:15
+msgid "Account URL"
+msgstr "Adresse du compte"
+
+#: src/components/settings/AboutStatus.vue:17
+#: src/components/settings/AboutStatus.vue:61
+#: src/components/settings/AboutStatus.vue:166
+#: src/components/settings/AboutStatus.vue:196
+#: src/components/tools/CsvDialog.vue:236
+msgid "Unknown"
+msgstr "Inconnu"
+
+#: src/components/settings/AboutStatus.vue:32
+msgid "Events (last and next 6 months)"
+msgstr "Événements (6 derniers et prochains mois)"
+
+#: src/components/settings/AboutStatus.vue:37
+#: src/components/settings/ContactsSettings.vue:2
+#: src/components/tools/CsvDialog.vue:326 src/composables/useImport.ts:189
+#: src/index.ts:198 src/views/Contacts.vue:6 src/views/Contacts.vue:52
+#: src/views/Settings.vue:123
+msgid "Contacts"
+msgstr "Contacts"
+
+#: src/components/settings/AboutStatus.vue:42
+#: src/components/settings/TasksSettings.vue:2 src/index.ts:208
+#: src/views/Settings.vue:125 src/views/Tasks.vue:6
+msgid "Tasks"
+msgstr "Tâches"
+
+#: src/components/settings/AboutStatus.vue:47
+msgid "Sync status"
+msgstr "État de la synchronisation"
+
+#: src/components/settings/AboutStatus.vue:52
+msgid "App version"
+msgstr "Version de l'application"
+
+#: src/components/settings/AboutStatus.vue:59
+msgid "OpenCloud version"
+msgstr "Version d'OpenCloud"
+
+#: src/components/settings/AboutStatus.vue:66
+msgid "Last check"
+msgstr "Dernière vérification"
+
+#: src/components/settings/AboutStatus.vue:72
+msgid "Some values could not be loaded."
+msgstr "Certaines valeurs n'ont pas pu être chargées."
+
+#: src/components/settings/AboutStatus.vue:79 src/setup/connection.ts:93
+msgid "Checking…"
+msgstr "Vérification…"
+
+#: src/components/settings/AboutStatus.vue:79
+msgid "Refresh"
+msgstr "Actualiser"
+
+#: src/components/settings/AboutStatus.vue:84
+msgid "Copy diagnostics"
+msgstr "Copier le diagnostic"
+
+#: src/components/settings/AboutStatus.vue:91
+msgid "Show diagnostics"
+msgstr "Afficher le diagnostic"
+
+#: src/components/settings/AboutStatus.vue:167
+msgid "%{answered} of %{total} calendars and address books answered"
+msgstr "%{answered} calendriers et carnets d'adresses sur %{total} ont répondu"
+
+#: src/components/settings/AboutStatus.vue:175
+msgid "Not checked yet"
+msgstr "Pas encore vérifié"
+
+#: src/components/settings/AboutStatus.vue:311
+msgid "Diagnostics copied"
+msgstr "Diagnostic copié"
+
+#: src/components/settings/BirthdaysSettings.vue:2
+#: src/components/settings/BirthdaysSettings.vue:127 src/views/Calendar.vue:164
+msgid "Birthdays"
+msgstr "Anniversaires"
+
+#: src/components/settings/BirthdaysSettings.vue:4
+msgid "Create birthday events from contacts"
+msgstr "Créer des événements d'anniversaire à partir des contacts"
+
+#: src/components/settings/BirthdaysSettings.vue:23
+msgid "Where the generated birthday events are stored."
+msgstr "Où les événements d'anniversaire générés sont enregistrés."
+
+#: src/components/settings/BirthdaysSettings.vue:35
+msgid "Own “Birthdays” calendar"
+msgstr "Calendrier « Anniversaires » dédié"
+
+#: src/components/settings/BirthdaysSettings.vue:43
+msgid "Birthday reminder"
+msgstr "Rappel d'anniversaire"
+
+#: src/components/settings/BirthdaysSettings.vue:45
+msgid ""
+"Birthday events are all-day events, so reminders fire in the morning (09:00)."
+msgstr ""
+"Les anniversaires sont des événements sur la journée entière, les rappels "
+"arrivent donc le matin (09:00)."
+
+#: src/components/settings/BirthdaysSettings.vue:67
+msgid "Birthdays in the calendar"
+msgstr "Anniversaires dans le calendrier"
+
+#: src/components/settings/BirthdaysSettings.vue:69
+msgid ""
+"Writes the birthday events of your contacts into the calendar right away."
+msgstr ""
+"Écrit immédiatement les événements d'anniversaire de vos contacts dans le "
+"calendrier."
+
+#: src/components/settings/BirthdaysSettings.vue:79
+msgid "Sync now"
+msgstr "Synchroniser maintenant"
+
+#: src/components/settings/BirthdaysSettings.vue:130
+#: src/components/tools/CalendarToolsCard.vue:122
+msgid "Calendar service not available"
+msgstr "Service de calendrier indisponible"
+
+#: src/components/settings/BirthdaysSettings.vue:134
+msgid "Birthdays synced"
+msgstr "Anniversaires synchronisés"
+
+#: src/components/settings/BirthdaysSettings.vue:136
+msgid "All birthdays already synced"
+msgstr "Tous les anniversaires sont déjà synchronisés"
+
+#: src/components/settings/BirthdaysSettings.vue:142
+msgid "At 09:00 on the birthday"
+msgstr "À 09:00 le jour de l'anniversaire"
+
+#: src/components/settings/CalendarSettings.vue:2
+msgid "View"
+msgstr "Affichage"
+
+#: src/components/settings/CalendarSettings.vue:4
+msgid "Default view"
+msgstr "Vue par défaut"
+
+#: src/components/settings/CalendarSettings.vue:23
+msgid "Week starts on"
+msgstr "La semaine commence le"
+
+#: src/components/settings/CalendarSettings.vue:42
+msgid "Show weekends"
+msgstr "Afficher les week-ends"
+
+#: src/components/settings/CalendarSettings.vue:58
+msgid "Show week numbers"
+msgstr "Afficher les numéros de semaine"
+
+#: src/components/settings/CalendarSettings.vue:75
+msgid "Day starts at"
+msgstr "La journée commence à"
+
+#: src/components/settings/CalendarSettings.vue:76
+msgid "The day and week views scroll to this time when they open."
+msgstr "Les vues jour et semaine défilent jusqu'à cette heure à l'ouverture."
+
+#: src/components/settings/CalendarSettings.vue:93
+msgid "New events"
+msgstr "Nouveaux événements"
+
+#: src/components/settings/CalendarSettings.vue:95
+#: src/components/settings/TasksSettings.vue:4
+msgid "Default calendar"
+msgstr "Calendrier par défaut"
+
+#: src/components/settings/CalendarSettings.vue:97
+msgid ""
+"Used for new events. A calendar that no longer exists falls back to the "
+"first one."
+msgstr ""
+"Utilisé pour les nouveaux événements. Un calendrier qui n'existe plus est "
+"remplacé par le premier."
+
+#: src/components/settings/CalendarSettings.vue:112
+#: src/components/settings/TasksSettings.vue:21
+msgid "First calendar"
+msgstr "Premier calendrier"
+
+#: src/components/settings/CalendarSettings.vue:120
+msgid "Default event duration"
+msgstr "Durée par défaut des événements"
+
+#: src/components/settings/CalendarSettings.vue:140
+msgid "Default reminders"
+msgstr "Rappels par défaut"
+
+#: src/components/settings/CalendarSettings.vue:159
+msgid "New events start with these reminders. Each event can change them."
+msgstr ""
+"Les nouveaux événements commencent avec ces rappels. Chaque événement peut "
+"les modifier."
+
+#: src/components/settings/CalendarSettings.vue:197 src/views/Calendar.vue:199
+msgid "Month"
+msgstr "Mois"
+
+#: src/components/settings/CalendarSettings.vue:198 src/views/Calendar.vue:200
+msgid "Week"
+msgstr "Semaine"
+
+#: src/components/settings/CalendarSettings.vue:199 src/views/Calendar.vue:201
+msgid "Day"
+msgstr "Jour"
+
+#: src/components/settings/CalendarSettings.vue:200 src/views/Calendar.vue:202
+msgid "Agenda"
+msgstr "Agenda"
+
+#: src/components/settings/CalendarSettings.vue:204
+msgid "According to the region"
+msgstr "Selon la région"
+
+#: src/components/settings/CalendarSettings.vue:205
+msgid "Monday"
+msgstr "Lundi"
+
+#: src/components/settings/CalendarSettings.vue:206
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: src/components/settings/CalendarSettings.vue:207
+msgid "Saturday"
+msgstr "Samedi"
+
+#: src/components/settings/CalendarSettings.vue:219
+msgid "1 hour"
+msgstr "1 heure"
+
+#: src/components/settings/CalendarSettings.vue:220
+msgid "%{hours} hours"
+msgstr "%{hours} heures"
+
+#: src/components/settings/CalendarSettings.vue:221
+#: src/components/settings/CalendarSettings.vue:222
+msgid "%{minutes} minutes"
+msgstr "%{minutes} minutes"
+
+#: src/components/settings/CalendarSettings.vue:229
+msgid "At the start"
+msgstr "Au début"
+
+#: src/components/settings/CalendarSettings.vue:230
+msgid "%{minutes} minutes before"
+msgstr "%{minutes} minutes avant"
+
+#: src/components/settings/CalendarSettings.vue:234
+msgid "%{days} days before"
+msgstr "%{days} jours avant"
+
+#: src/components/settings/CalendarSettings.vue:236
+msgid "%{hours} hours before"
+msgstr "%{hours} heures avant"
+
+#: src/components/settings/ContactsSettings.vue:4
+msgid "Default address book"
+msgstr "Carnet d'adresses par défaut"
+
+#: src/components/settings/ContactsSettings.vue:6
+msgid ""
+"Opened first in Contacts. An address book that no longer exists falls back "
+"to the first one."
+msgstr ""
+"Ouvert en premier dans Contacts. Un carnet d'adresses qui n'existe plus est "
+"remplacé par le premier."
+
+#: src/components/settings/ContactsSettings.vue:21
+msgid "First address book"
+msgstr "Premier carnet d'adresses"
+
+#: src/components/settings/ContactsSettings.vue:29
+msgid "Sort contacts by"
+msgstr "Trier les contacts par"
+
+#: src/components/settings/ContactsSettings.vue:47
+msgid "Show names as"
+msgstr "Afficher les noms comme"
+
+#: src/components/settings/ContactsSettings.vue:49
+msgid ""
+"Only the list is formatted — the stored name of a contact is never changed."
+msgstr ""
+"Seule la liste est mise en forme — le nom enregistré d'un contact n'est "
+"jamais modifié."
+
+#: src/components/settings/ContactsSettings.vue:62
+msgid "First name Last name"
+msgstr "Prénom Nom"
+
+#: src/components/settings/ContactsSettings.vue:63
+msgid "Last name, First name"
+msgstr "Nom, Prénom"
+
+#: src/components/settings/DataSettings.vue:4
+msgid "Calendars & address books"
+msgstr "Calendriers et carnets d'adresses"
+
+#: src/components/settings/DataSettings.vue:6
+msgid ""
+"Create, rename, color and delete your calendars and address books. Changes "
+"apply immediately on the server."
+msgstr ""
+"Créez, renommez, colorisez et supprimez vos calendriers et carnets "
+"d'adresses. Les modifications sont appliquées immédiatement sur le serveur."
+
+#: src/components/settings/DataSettings.vue:15
+msgid "Import & export"
+msgstr "Importation et exportation"
+
+#: src/components/settings/DataSettings.vue:23
+msgid "Backup & restore"
+msgstr "Sauvegarde & restauration"
+
+#: src/components/settings/DataSettings.vue:28
+msgid "Clean up"
+msgstr "Nettoyage"
+
+#: src/components/settings/FormatSettings.vue:3
+msgid "Date and time format"
+msgstr "Format de date et d'heure"
+
+#: src/components/settings/FormatSettings.vue:4
+msgid "Example: %{sample}"
+msgstr "Exemple : %{sample}"
+
+#: src/components/settings/FormatSettings.vue:23
+msgid "Clock"
+msgstr "Horloge"
+
+#: src/components/settings/FormatSettings.vue:78
+msgid "Automatic (browser: %{region})"
+msgstr "Automatique (navigateur : %{region})"
+
+#: src/components/settings/FormatSettings.vue:79
+msgid "Automatic (browser)"
+msgstr "Automatique (navigateur)"
+
+#: src/components/settings/FormatSettings.vue:96
+msgid "As in the region"
+msgstr "Comme dans la région"
+
+#: src/components/settings/FormatSettings.vue:97
+msgid "24-hour (14:05)"
+msgstr "24 heures (14:05)"
+
+#: src/components/settings/FormatSettings.vue:98
+msgid "12-hour (2:05 PM)"
+msgstr "12 heures (2:05 PM)"
+
+#: src/components/settings/GeneralSettings.vue:2
+msgid "Apps"
+msgstr "Applications"
+
+#: src/components/settings/GeneralSettings.vue:23
+msgid "Default app"
+msgstr "Application par défaut"
+
+#: src/components/settings/GeneralSettings.vue:24
+msgid "Opened from the app menu and after starting the app."
+msgstr ""
+"Ouverte depuis le menu des applications et au démarrage de l'application."
+
+#: src/components/settings/GeneralSettings.vue:43
+msgid "Navigation"
+msgstr "Navigation"
+
+#: src/components/settings/GeneralSettings.vue:57
+msgid "Files sidebar"
+msgstr "Barre latérale de Fichiers"
+
+#: src/components/settings/GeneralSettings.vue:58
+msgid "App menu only"
+msgstr "Menu des applications uniquement"
+
+#: src/components/settings/GeneralSettings.vue:67
+#: src/components/settings/GeneralSettings.vue:68
+msgid "Arrange apps in the Files sidebar"
+msgstr "Organiser les applications dans la barre latérale de Fichiers"
+
+#: src/components/settings/GeneralSettings.vue:94
+#: src/components/settings/GeneralSettings.vue:95
+#: src/components/settings/GeneralSettings.vue:221
+#: src/components/settings/GeneralSettings.vue:222
+msgid "Move %{app} up"
+msgstr "Déplacer %{app} vers le haut"
+
+#: src/components/settings/GeneralSettings.vue:106
+#: src/components/settings/GeneralSettings.vue:107
+#: src/components/settings/GeneralSettings.vue:233
+#: src/components/settings/GeneralSettings.vue:234
+msgid "Move %{app} down"
+msgstr "Déplacer %{app} vers le bas"
+
+#: src/components/settings/GeneralSettings.vue:121
+msgid "Position of %{app} in the Files sidebar"
+msgstr "Position de %{app} dans la barre latérale de Fichiers"
+
+#: src/components/settings/GeneralSettings.vue:136
+msgid "Show %{app} in the Files sidebar"
+msgstr "Afficher %{app} dans la barre latérale de Fichiers"
+
+#: src/components/settings/GeneralSettings.vue:145
+msgid "App menu"
+msgstr "Menu d'applications"
+
+#: src/components/settings/GeneralSettings.vue:159
+msgid "One entry"
+msgstr "Une entrée"
+
+#: src/components/settings/GeneralSettings.vue:160
+msgid "One entry per app"
+msgstr "Une entrée par application"
+
+#: src/components/settings/GeneralSettings.vue:167
+#: src/components/settings/GeneralSettings.vue:168
+msgid "Arrange apps in the app menu"
+msgstr "Organiser les applications dans le menu d'applications"
+
+#: src/components/settings/GeneralSettings.vue:192
+#: src/components/settings/GeneralSettings.vue:247
+msgid "Position of %{app} in the app menu"
+msgstr "Position de %{app} dans le menu d'applications"
+
+#: src/components/settings/GeneralSettings.vue:261
+msgid "Show %{app} in the app menu"
+msgstr "Afficher %{app} dans le menu d'applications"
+
+#: src/components/settings/GeneralSettings.vue:281
+msgid "Format"
+msgstr "Format"
+
+#: src/components/settings/GeneralSettings.vue:381
+msgid "Disabled by your administrator."
+msgstr "Désactivé par votre administrateur."
+
+#: src/components/settings/GeneralSettings.vue:382
+#: src/components/settings/SettingsLock.vue:5
+#: src/components/settings/SettingsLock.vue:6
+msgid "Set by your administrator."
+msgstr "Défini par votre administrateur."
+
+#: src/components/settings/GeneralSettings.vue:383
+msgid "At least one app must remain enabled."
+msgstr "Au moins une application doit rester activée."
+
+#: src/components/settings/GeneralSettings.vue:403
+msgid "Calendar, Contacts and Tasks appear in the Files sidebar."
+msgstr ""
+"Calendrier, Contacts et Tâches apparaissent dans la barre latérale de "
+"Fichiers."
+
+#: src/components/settings/GeneralSettings.vue:404
+#: src/components/settings/GeneralSettings.vue:419
+msgid "One %{app} entry in the app menu; switch apps in the sidebar."
+msgstr ""
+"Une entrée %{app} dans le menu des applications ; changez d'application dans "
+"la barre latérale."
+
+#: src/components/settings/GeneralSettings.vue:418
+msgid "One entry per app; pick the apps below."
+msgstr "Une entrée par application ; choisissez les applications ci-dessous."
+
+#: src/components/settings/GeneralSettings.vue:475
+msgid "After Personal"
+msgstr "Après « Personnel »"
+
+#: src/components/settings/GeneralSettings.vue:476
+msgid "After Favorites"
+msgstr "Après « Favoris »"
+
+#: src/components/settings/GeneralSettings.vue:477
+msgid "After Shares"
+msgstr "Après « Partages »"
+
+#: src/components/settings/GeneralSettings.vue:478
+msgid "After Spaces"
+msgstr "Après « Espaces »"
+
+#: src/components/settings/GeneralSettings.vue:479
+msgid "After Deleted files"
+msgstr "Après « Fichiers supprimés »"
+
+#: src/components/settings/GeneralSettings.vue:492
+msgid "First"
+msgstr "En premier"
+
+#: src/components/settings/GeneralSettings.vue:493
+msgid "After Files"
+msgstr "Après Fichiers"
+
+#: src/components/settings/GeneralSettings.vue:494
+msgid "After the other apps"
+msgstr "Après les autres applications"
+
+#: src/components/settings/GeneralSettings.vue:495
+msgid "After Admin Settings"
+msgstr "Après Administration"
+
+#: src/components/settings/GeneralSettings.vue:496
+msgid "Last"
+msgstr "En dernier"
+
+#: src/components/settings/RemindersSettings.vue:3
+msgid "Show reminders"
+msgstr "Afficher les rappels"
+
+#: src/components/settings/RemindersSettings.vue:4
+msgid "Reminders are shown while OpenCloud is open in a browser tab."
+msgstr ""
+"Les rappels s'affichent tant qu'OpenCloud est ouvert dans un onglet du "
+"navigateur."
+
+#: src/components/settings/RemindersSettings.vue:20
+msgid "Desktop notifications: %{state}"
+msgstr "Notifications de bureau : %{state}"
+
+#: src/components/settings/RemindersSettings.vue:31
+msgid "Allow desktop notifications"
+msgstr "Autoriser les notifications de bureau"
+
+#: src/components/settings/RemindersSettings.vue:76
+msgid "Allowed"
+msgstr "Autorisées"
+
+#: src/components/settings/RemindersSettings.vue:78
+msgid "Blocked"
+msgstr "Bloquées"
+
+#: src/components/settings/RemindersSettings.vue:80
+msgid "Not requested yet"
+msgstr "Pas encore demandées"
+
+#: src/components/settings/RemindersSettings.vue:82
+msgid "Not supported in this browser"
+msgstr "Non disponible dans ce navigateur"
+
+#: src/components/settings/SettingsMore.vue:7
+msgid "More options"
+msgstr "Plus d'options"
+
+#: src/components/settings/SettingsTabs.vue:3
+msgid "Settings sections"
+msgstr "Sections des paramètres"
+
+#: src/components/settings/TasksSettings.vue:6
+msgid ""
+"New tasks are created here. A calendar that no longer exists falls back to "
+"the first one."
+msgstr ""
+"Les nouvelles tâches sont créées ici. Un calendrier qui n'existe plus est "
+"remplacé par le premier."
+
+#: src/components/settings/TasksSettings.vue:29
+msgid "Reminder for new tasks"
+msgstr "Rappel pour les nouvelles tâches"
+
+#: src/components/settings/TasksSettings.vue:31
+msgid ""
+"Tasks without their own reminder are announced this long before they are due."
+msgstr ""
+"Les tâches sans rappel propre sont annoncées aussi longtemps avant leur "
+"échéance."
+
+#: src/components/settings/TasksSettings.vue:51
+msgid "Show completed tasks"
+msgstr "Afficher les tâches terminées"
+
+#: src/components/settings/TasksSettings.vue:95
+msgid "At the due time"
+msgstr "À l'échéance"
+
+#: src/components/SetupState.vue:12
+msgid "Server response"
+msgstr "Réponse du serveur"
+
+#: src/components/SetupState.vue:22
+msgid "Administrator setup"
+msgstr "Configuration administrateur"
+
+#: src/components/SetupState.vue:51
+msgid "Testing…"
+msgstr "Test de la connexion…"
+
+#: src/components/SetupState.vue:51
+msgid "Test connection"
+msgstr "Tester la connexion"
+
+#: src/components/SetupState.vue:55
+msgid "Install guide"
+msgstr "Guide d'installation"
+
+#: src/components/SetupState.vue:111
+msgid "The calendar server is not reachable"
+msgstr "Le serveur de calendrier est injoignable"
+
+#: src/components/SetupState.vue:113
+msgid "Signing in to the calendar server failed"
+msgstr "La connexion au serveur de calendrier a échoué"
+
+#: src/components/SetupState.vue:115
+msgid "%{app} cannot connect"
+msgstr "%{app} ne peut pas se connecter"
+
+#: src/components/SetupState.vue:117
+msgid "%{app} is not set up yet"
+msgstr "%{app} n'est pas encore configuré"
+
+#: src/components/SetupState.vue:124
+msgid "Your administrator still needs to finish the setup of %{app}."
+msgstr "Votre administrateur doit encore terminer la configuration de %{app}."
+
+#: src/components/SetupState.vue:127
+msgid ""
+"Please try again later. If the problem persists, contact your administrator."
+msgstr ""
+"Veuillez réessayer plus tard. Si le problème persiste, contactez votre "
+"administrateur."
+
+#: src/components/SetupState.vue:133
+msgid ""
+"The calendar server is not connected to this OpenCloud instance. The proxy "
+"does not route the DAV endpoints yet."
+msgstr ""
+"Le serveur de calendrier n'est pas relié à cette instance OpenCloud. Le "
+"proxy ne route pas encore les points d'accès DAV."
+
+#: src/components/SetupState.vue:137
+msgid ""
+"The calendar server cannot be reached right now. The service may be stopped "
+"or still starting."
+msgstr ""
+"Le serveur de calendrier est actuellement injoignable. Le service est peut-"
+"être arrêté ou encore en cours de démarrage."
+
+#: src/components/SetupState.vue:141
+msgid ""
+"OpenCloud could not sign in to the calendar server. The user mapping of the "
+"DAV endpoints is not working."
+msgstr ""
+"OpenCloud n'a pas pu s'authentifier auprès du serveur de calendrier. La "
+"correspondance des utilisateurs des points d'accès DAV ne fonctionne pas."
+
+#: src/components/SetupState.vue:145
+msgid ""
+"The calendar server answered with an unexpected error. Check the server logs "
+"for details."
+msgstr ""
+"Le serveur de calendrier a répondu par une erreur inattendue. Consultez les "
+"journaux du serveur pour plus de détails."
+
+#: src/components/SetupState.vue:159
+msgid "Add radicale/radicale.yml to COMPOSE_FILE in your .env file:"
+msgstr "Ajoutez radicale/radicale.yml à COMPOSE_FILE dans votre fichier .env :"
+
+#: src/components/SetupState.vue:161
+msgid ""
+"Check that config/opencloud/proxy.yaml (shipped upstream) contains these "
+"routes, which forward the DAV endpoints to Radicale with remote_user_header: "
+"X-Remote-User:"
+msgstr ""
+"Vérifiez que config/opencloud/proxy.yaml (fourni en amont) contient ces "
+"routes, qui transmettent les points d'accès DAV à Radicale avec "
+"remote_user_header: X-Remote-User :"
+
+#: src/components/SetupState.vue:165
+msgid "Apply the changes:"
+msgstr "Appliquez les modifications :"
+
+#: src/components/SetupState.vue:196
+msgid "Connection works — the app is ready."
+msgstr "La connexion fonctionne — l'application est prête."
+
+#: src/components/SetupState.vue:199
+msgid "The connection test still fails (%{outcome})."
+msgstr "Le test de connexion échoue toujours (%{outcome})."
+
+#: src/components/tasks/TaskDialog.vue:30
+msgid "Edit task"
+msgstr "Modifier la tâche"
+
+#: src/components/tasks/TaskDialog.vue:30 src/views/Tasks.vue:32
+#: src/views/Tasks.vue:39
+msgid "New task"
+msgstr "Nouvelle tâche"
+
+#: src/components/tasks/TaskDialog.vue:39
+msgid "Due date"
+msgstr "Date d'échéance"
+
+#: src/components/tasks/TaskDialog.vue:49
+msgid "Due time"
+msgstr "Heure d'échéance"
+
+#: src/components/tasks/TaskDialog.vue:62
+msgid "Priority"
+msgstr "Priorité"
+
+#: src/components/tasks/TaskDialog.vue:163
+msgid "None"
+msgstr "Aucune"
+
+#: src/components/tasks/TaskDialog.vue:164 src/composables/useTasksView.ts:180
+msgid "Low"
+msgstr "Basse"
+
+#: src/components/tasks/TaskDialog.vue:165 src/composables/useTasksView.ts:178
+msgid "Medium"
+msgstr "Moyenne"
+
+#: src/components/tasks/TaskDialog.vue:166 src/composables/useTasksView.ts:176
+msgid "High"
+msgstr "Haute"
+
+#: src/components/tools/BackupCard.vue:22
+msgid "Create backup (.zip)"
+msgstr "Créer une sauvegarde (.zip)"
+
+#: src/components/tools/BackupCard.vue:27
+#: src/components/tools/BackupCard.vue:52
+msgid "Restore from backup"
+msgstr "Restaurer depuis une sauvegarde"
+
+#: src/components/tools/BackupCard.vue:35
+msgid "Backup file"
+msgstr "Fichier de sauvegarde"
+
+#: src/components/tools/BackupCard.vue:40
+msgid "Working…"
+msgstr "En cours…"
+
+#: src/components/tools/BackupCard.vue:57
+msgid ""
+"Choose where each file of the backup should be imported. Existing calendars "
+"and address books are matched by name."
+msgstr ""
+"Choisissez où importer chaque fichier de la sauvegarde. Les calendriers et "
+"carnets d'adresses existants sont associés par leur nom."
+
+#: src/components/tools/BackupCard.vue:74
+msgid "Restore target"
+msgstr "Cible de la restauration"
+
+#: src/components/tools/BackupCard.vue:77
+msgid "Existing"
+msgstr "Existant"
+
+#: src/components/tools/BackupCard.vue:79
+msgid "New"
+msgstr "Nouveau"
+
+#: src/components/tools/BackupCard.vue:86
+msgid "Target"
+msgstr "Cible"
+
+#: src/components/tools/BackupCard.vue:99
+msgid "Name of the new calendar or address book"
+msgstr "Nom du nouveau calendrier ou carnet d'adresses"
+
+#: src/components/tools/BackupCard.vue:118
+msgid "Restoring…"
+msgstr "Restauration…"
+
+#: src/components/tools/BackupCard.vue:118
+msgid "Restore"
+msgstr "Restaurer"
+
+#: src/components/tools/BackupCard.vue:178
+msgid "Not used from this backup: %{files}"
+msgstr "Non utilisé dans cette sauvegarde : %{files}"
+
+#: src/components/tools/BackupCard.vue:201
+msgid "Incomplete backup"
+msgstr "Sauvegarde incomplète"
+
+#: src/components/tools/BackupCard.vue:202
+msgid ""
+"These calendars and address books could not be read and are not in the "
+"backup: %{names}"
+msgstr ""
+"Ces calendriers et carnets d'adresses n'ont pas pu être lus et ne figurent "
+"pas dans la sauvegarde : %{names}"
+
+#: src/components/tools/BackupCard.vue:210
+msgid "Backup created"
+msgstr "Sauvegarde créée"
+
+#: src/components/tools/BackupCard.vue:214
+msgid "Could not create the backup"
+msgstr "Impossible de créer la sauvegarde"
+
+#: src/components/tools/BackupCard.vue:245
+msgid "This backup contains no calendars or address books"
+msgstr "Cette sauvegarde ne contient aucun calendrier ni carnet d'adresses"
+
+#: src/components/tools/BackupCard.vue:266
+msgid "This file is not a readable zip archive"
+msgstr "Ce fichier n'est pas une archive zip lisible"
+
+#: src/components/tools/BackupCard.vue:311
+msgid "%{count} item restored"
+msgid_plural "%{count} items restored"
+msgstr[0] "%{count} élément restauré"
+msgstr[1] "%{count} éléments restaurés"
+
+#: src/components/tools/BackupCard.vue:315 src/composables/useImport.ts:111
+msgid "%{count} item skipped (already exists)"
+msgid_plural "%{count} items skipped (already exist)"
+msgstr[0] "%{count} élément ignoré (déjà existant)"
+msgstr[1] "%{count} éléments ignorés (déjà existants)"
+
+#: src/components/tools/BackupCard.vue:324 src/composables/useImport.ts:121
+msgid "%{count} item failed"
+msgid_plural "%{count} items failed"
+msgstr[0] "%{count} élément a échoué"
+msgstr[1] "%{count} éléments ont échoué"
+
+#: src/components/tools/BackupCard.vue:328
+#: src/components/tools/BackupCard.vue:337
+msgid "Restore failed"
+msgstr "La restauration a échoué"
+
+#: src/components/tools/BackupCard.vue:330
+msgid "Nothing to restore"
+msgstr "Rien à restaurer"
+
+#: src/components/tools/CalendarToolsCard.vue:3
+msgid "Calendar (.ics)"
+msgstr "Calendrier (.ics)"
+
+#: src/components/tools/CalendarToolsCard.vue:20
+msgid "Import .ics"
+msgstr "Importer .ics"
+
+#: src/components/tools/CalendarToolsCard.vue:33
+msgid "Export .ics"
+msgstr "Exporter .ics"
+
+#: src/components/tools/CalendarToolsCard.vue:128
+#: src/components/tools/useContactsTools.ts:140
+msgid "Nothing to export"
+msgstr "Rien à exporter"
+
+#: src/components/tools/ContactsCsvCard.vue:15
+msgid "Contacts CSV"
+msgstr "CSV des contacts"
+
+#: src/components/tools/ContactsCsvCard.vue:32
+msgid "Import CSV"
+msgstr "Importer un CSV"
+
+#: src/components/tools/ContactsCsvCard.vue:40
+msgid "CSV file"
+msgstr "Fichier CSV"
+
+#: src/components/tools/ContactsCsvCard.vue:50
+msgid "Export CSV"
+msgstr "Exporter en CSV"
+
+#: src/components/tools/ContactsCsvCard.vue:55
+msgid "No address book found."
+msgstr "Aucun carnet d'adresses trouvé."
+
+#: src/components/tools/ContactsCsvCard.vue:58
+msgid "No contacts to export in this address book."
+msgstr "Aucun contact à exporter dans ce carnet d'adresses."
+
+#: src/components/tools/ContactsToolsCard.vue:4
+msgid "Contacts (.vcf)"
+msgstr "Contacts (.vcf)"
+
+#: src/components/tools/ContactsToolsCard.vue:22
+msgid "Import .vcf"
+msgstr "Importer .vcf"
+
+#: src/components/tools/ContactsToolsCard.vue:35
+msgid "Export .vcf"
+msgstr "Exporter .vcf"
+
+#: src/components/tools/ContactsToolsCard.vue:54
+msgid "Duplicate contacts"
+msgstr "Contacts en double"
+
+#: src/components/tools/ContactsToolsCard.vue:70
+#: src/components/tools/ContactsToolsCard.vue:85
+msgid "Merge duplicates"
+msgstr "Fusionner les doublons"
+
+#: src/components/tools/ContactsToolsCard.vue:88
+msgid "Select the contact to keep:"
+msgstr "Sélectionnez le contact à conserver :"
+
+#: src/components/tools/ContactsToolsCard.vue:93
+msgid "Choose which contact to keep"
+msgstr "Choisir le contact à conserver"
+
+#: src/components/tools/ContactsToolsCard.vue:116
+msgid "Add fields from duplicate:"
+msgstr "Ajouter des champs du doublon :"
+
+#: src/components/tools/ContactsToolsCard.vue:130
+msgid "Skip"
+msgstr "Passer"
+
+#: src/components/tools/ContactsToolsCard.vue:136
+msgid "Merge"
+msgstr "Fusionner"
+
+#: src/components/tools/CsvDialog.vue:36
+msgid "Import contacts from CSV"
+msgstr "Importer des contacts depuis un CSV"
+
+#: src/components/tools/CsvDialog.vue:37
+msgid "Export contacts as CSV"
+msgstr "Exporter les contacts en CSV"
+
+#: src/components/tools/CsvDialog.vue:55
+msgid "Detected format"
+msgstr "Format détecté"
+
+#: src/components/tools/CsvDialog.vue:64
+msgid "Column"
+msgstr "Colonne"
+
+#: src/components/tools/CsvDialog.vue:108
+msgid "Name of the new address book"
+msgstr "Nom du nouveau carnet d'adresses"
+
+#: src/components/tools/CsvDialog.vue:132
+msgid "%{count} contact will be exported"
+msgid_plural "%{count} contacts will be exported"
+msgstr[0] "%{count} contact sera exporté"
+msgstr[1] "%{count} contacts seront exportés"
+
+#: src/components/tools/CsvDialog.vue:142
+msgid ""
+"The CSV contains name, email addresses, phone numbers, birthday, "
+"organization and notes. Use the .vcf export for a complete copy."
+msgstr ""
+"Le CSV contient le nom, les adresses e-mail, les numéros de téléphone, "
+"l'anniversaire, l'organisation et les notes. Utilisez l'export .vcf pour une "
+"copie complète."
+
+#: src/components/tools/CsvDialog.vue:159
+msgid "Export"
+msgstr "Exporter"
+
+#: src/components/tools/CsvDialog.vue:232
+msgid "Google Contacts"
+msgstr "Google Contacts"
+
+#: src/components/tools/CsvDialog.vue:234
+msgid "Outlook"
+msgstr "Outlook"
+
+#: src/components/tools/CsvDialog.vue:260
+msgid "Column %{index}"
+msgstr "Colonne %{index}"
+
+#: src/components/tools/CsvDialog.vue:266
+msgid "Do not import"
+msgstr "Ne pas importer"
+
+#: src/components/tools/CsvDialog.vue:268
+msgid "Full name"
+msgstr "Nom complet"
+
+#: src/components/tools/DuplicateEventsCard.vue:14
+msgid "Duplicate events"
+msgstr "Événements en double"
+
+#: src/components/tools/DuplicateEventsCard.vue:30
+msgid "Find duplicates"
+msgstr "Rechercher les doublons"
+
+#: src/components/tools/DuplicateEventsCard.vue:34
+msgid "Searching…"
+msgstr "Recherche…"
+
+#: src/components/tools/DuplicateEventsCard.vue:84
+#: src/components/tools/DuplicateEventsCard.vue:117
+msgid "No duplicate events found"
+msgstr "Aucun événement en double trouvé"
+
+#: src/components/tools/DuplicateEventsCard.vue:90
+msgid "Could not search for duplicate events"
+msgstr "Impossible de rechercher les événements en double"
+
+#: src/components/tools/DuplicateEventsCard.vue:101
+msgid "%{count} event deleted"
+msgid_plural "%{count} events deleted"
+msgstr[0] "%{count} événement supprimé"
+msgstr[1] "%{count} événements supprimés"
+
+#: src/components/tools/DuplicateEventsCard.vue:108
+msgid "%{count} event failed"
+msgid_plural "%{count} events failed"
+msgstr[0] "%{count} événement a échoué"
+msgstr[1] "%{count} événements ont échoué"
+
+#: src/components/tools/DuplicateEventsCard.vue:115
+msgid "Could not delete the duplicates"
+msgstr "Impossible de supprimer les doublons"
+
+#: src/components/tools/DuplicateEventsDialog.vue:30
+msgid "Remove duplicate events"
+msgstr "Supprimer les événements en double"
+
+#: src/components/tools/DuplicateEventsDialog.vue:35
+msgid ""
+"%{count} duplicate group in \"%{calendar}\". The event with the most details "
+"is kept."
+msgid_plural ""
+"%{count} duplicate groups in \"%{calendar}\". The event with the most "
+"details is kept."
+msgstr[0] ""
+"%{count} groupe de doublons dans « %{calendar} ». L'événement le plus "
+"détaillé est conservé."
+msgstr[1] ""
+"%{count} groupes de doublons dans « %{calendar} ». L'événement le plus "
+"détaillé est conservé."
+
+#: src/components/tools/DuplicateEventsDialog.vue:48
+msgid "kept"
+msgstr "conservé"
+
+#: src/components/tools/DuplicateEventsDialog.vue:53
+msgid "will be deleted"
+msgstr "sera supprimé"
+
+#: src/components/tools/DuplicateEventsDialog.vue:60
+msgid "Deleting…"
+msgstr "Suppression…"
+
+#: src/components/tools/DuplicateEventsDialog.vue:73
+msgid "Delete duplicates"
+msgstr "Supprimer les doublons"
+
+#: src/components/tools/useContactsTools.ts:253
+msgid "Photo"
+msgstr "Photo"
+
+#: src/components/tools/useContactsTools.ts:310
+msgid "No duplicates found"
+msgstr "Aucun doublon trouvé"
+
+#: src/components/tools/useContactsTools.ts:360
+msgid "Duplicates merged"
+msgstr "Doublons fusionnés"
+
+#: src/composables/davErrorMessages.ts:40
+#: src/composables/useContactsView.ts:243
+#: src/composables/useContactsView.ts:287 src/composables/useTasksView.ts:297
+#: src/composables/useTasksView.ts:382 src/composables/useTasksView.ts:426
+msgid "Item was modified elsewhere. Latest version loaded."
+msgstr "L'élément a été modifié ailleurs. La dernière version a été chargée."
+
+#: src/composables/davErrorMessages.ts:43
+msgid "The calendar server is not reachable. Try again."
+msgstr "Le serveur de calendrier est injoignable. Réessayez."
+
+#: src/composables/davErrorMessages.ts:45
+msgid "The request to the calendar server failed. Please try again."
+msgstr "La requête au serveur de calendrier a échoué. Veuillez réessayer."
+
+#: src/composables/eventPeople.ts:58
+msgid "Accepted"
+msgstr "Accepté"
+
+#: src/composables/eventPeople.ts:60
+msgid "Declined"
+msgstr "Refusé"
+
+#: src/composables/eventPeople.ts:62
+msgid "Tentative"
+msgstr "Provisoire"
+
+#: src/composables/eventPeople.ts:64
+msgid "Needs action"
+msgstr "En attente de réponse"
+
+#: src/composables/eventPeople.ts:66
+msgid "Delegated"
+msgstr "Délégué"
+
+#: src/composables/importFileLimits.ts:28
+msgid "This file is too large to import. The maximum size is %{megabytes} MB."
+msgstr ""
+"Ce fichier est trop volumineux pour être importé. La taille maximale est de "
+"%{megabytes} Mo."
+
+#: src/composables/useContactsView.ts:234
+msgid "Contact updated"
+msgstr "Contact mis à jour"
+
+#: src/composables/useContactsView.ts:247
+msgid "Failed to update contact"
+msgstr "Impossible de mettre à jour le contact"
+
+#: src/composables/useContactsView.ts:258
+msgid "Contact created"
+msgstr "Contact créé"
+
+#: src/composables/useContactsView.ts:263
+msgid "Failed to create contact"
+msgstr "Impossible de créer le contact"
+
+#: src/composables/useContactsView.ts:271
+msgid "Delete contact"
+msgstr "Supprimer le contact"
+
+#: src/composables/useContactsView.ts:272
+msgid "Are you sure you want to delete this contact?"
+msgstr "Êtes-vous sûr de vouloir supprimer ce contact ?"
+
+#: src/composables/useContactsView.ts:279
+msgid "Contact deleted"
+msgstr "Contact supprimé"
+
+#: src/composables/useContactsView.ts:291
+msgid "Failed to delete contact"
+msgstr "Impossible de supprimer le contact"
+
+#: src/composables/useEventActions.ts:103
+#: src/composables/useEventActions.ts:225
+#: src/composables/useEventActions.ts:293
+msgid "Failed to update event"
+msgstr "Impossible de mettre à jour l'événement"
+
+#: src/composables/useEventActions.ts:219
+#: src/composables/useEventActions.ts:286
+msgid "Event updated"
+msgstr "Événement mis à jour"
+
+#: src/composables/useEventActions.ts:311
+msgid "Event created"
+msgstr "Événement créé"
+
+#: src/composables/useEventActions.ts:315
+msgid "Failed to create event"
+msgstr "Impossible de créer l'événement"
+
+#: src/composables/useEventActions.ts:334
+msgid "Delete event"
+msgstr "Supprimer l'événement"
+
+#: src/composables/useEventActions.ts:335
+msgid "Are you sure you want to delete this event?"
+msgstr "Êtes-vous sûr de vouloir supprimer cet événement ?"
+
+#: src/composables/useEventActions.ts:346
+msgid "Event deleted"
+msgstr "Événement supprimé"
+
+#: src/composables/useEventActions.ts:350
+msgid "Failed to delete event"
+msgstr "Impossible de supprimer l'événement"
+
+#: src/composables/useFileImportActions.ts:141
+msgid "Could not read the selected file"
+msgstr "Impossible de lire le fichier sélectionné"
+
+#: src/composables/useFileImportActions.ts:177
+msgid "Import into calendar"
+msgstr "Importer dans le calendrier"
+
+#: src/composables/useFileImportActions.ts:186
+msgid "Import into contacts"
+msgstr "Importer dans les contacts"
+
+#: src/composables/useImport.ts:101
+msgid "%{count} event imported"
+msgid_plural "%{count} events imported"
+msgstr[0] "%{count} événement importé"
+msgstr[1] "%{count} événements importés"
+
+#: src/composables/useImport.ts:104
+msgid "%{count} contact imported"
+msgid_plural "%{count} contacts imported"
+msgstr[0] "%{count} contact importé"
+msgstr[1] "%{count} contacts importés"
+
+#: src/composables/useImport.ts:128
+msgid "Import failed"
+msgstr "Échec de l'import"
+
+#: src/composables/useImport.ts:131
+msgid "Everything in this file already exists"
+msgstr "Tout le contenu de ce fichier existe déjà"
+
+#: src/composables/useImport.ts:133
+msgid "Nothing to import"
+msgstr "Rien à importer"
+
+#: src/composables/useImport.ts:174
+msgid "No events found in file"
+msgstr "Aucun événement trouvé dans le fichier"
+
+#: src/composables/useImport.ts:186
+msgid "No contacts found in file"
+msgstr "Aucun contact trouvé dans le fichier"
+
+#: src/composables/useTasksView.ts:143
+msgid "Open"
+msgstr "Ouvertes"
+
+#: src/composables/useTasksView.ts:144
+msgid "Completed"
+msgstr "Terminées"
+
+#: src/composables/useTasksView.ts:145
+msgid "All"
+msgstr "Toutes"
+
+#: src/composables/useTasksView.ts:272 src/composables/useTasksView.ts:397
+msgid "Task created"
+msgstr "Tâche créée"
+
+#: src/composables/useTasksView.ts:278 src/composables/useTasksView.ts:402
+msgid "Failed to create task"
+msgstr "Impossible de créer la tâche"
+
+#: src/composables/useTasksView.ts:287
+msgid "Task completed"
+msgstr "Tâche terminée"
+
+#: src/composables/useTasksView.ts:287
+msgid "Task reopened"
+msgstr "Tâche rouverte"
+
+#: src/composables/useTasksView.ts:298 src/composables/useTasksView.ts:383
+msgid "Failed to update task"
+msgstr "Impossible de mettre à jour la tâche"
+
+#: src/composables/useTasksView.ts:372
+msgid "Task updated"
+msgstr "Tâche mise à jour"
+
+#: src/composables/useTasksView.ts:409 src/views/Tasks.vue:154
+#: src/views/Tasks.vue:155
+msgid "Delete task"
+msgstr "Supprimer la tâche"
+
+#: src/composables/useTasksView.ts:410
+msgid "Are you sure you want to delete this task?"
+msgstr "Êtes-vous sûr de vouloir supprimer cette tâche ?"
+
+#: src/composables/useTasksView.ts:416
+msgid "Task deleted"
+msgstr "Tâche supprimée"
+
+#: src/composables/useTasksView.ts:427
+msgid "Failed to delete task"
+msgstr "Impossible de supprimer la tâche"
+
+#: src/navigation.ts:462
+msgid "Back to OpenCloud"
+msgstr "Retour à OpenCloud"
+
+#: src/setup/connection.ts:83
+msgid "OK"
+msgstr "OK"
+
+#: src/setup/connection.ts:85
+msgid "Not configured"
+msgstr "Non configuré"
+
+#: src/setup/connection.ts:87
+msgid "Unavailable"
+msgstr "Injoignable"
+
+#: src/setup/connection.ts:89
+msgid "Unauthorized"
+msgstr "Non autorisé"
+
+#: src/setup/connection.ts:91
+msgid "Error"
+msgstr "Erreur"
+
+#: src/views/Calendar.vue:29
+msgid "Go to date"
+msgstr "Aller à la date"
+
+#: src/views/Calendar.vue:46
+msgid "Loading calendar..."
+msgstr "Chargement du calendrier…"
+
+#: src/views/Calendar.vue:54 src/views/Tasks.vue:79
+msgid "Check that the calendar server is running."
+msgstr "Vérifiez que le serveur de calendrier est démarré."
+
+#: src/views/Calendar.vue:186 src/views/Calendar.vue:213
+#: src/views/Calendar.vue:281 src/views/Calendar.vue:313
+msgid ""
+"Birthdays are managed in the contact. Edit the birth date there and re-sync."
+msgstr ""
+"Les anniversaires sont gérés dans le contact. Modifiez la date de naissance "
+"ici et resynchronisez."
+
+#: src/views/Calendar.vue:203
+msgid "Today"
+msgstr "Aujourd'hui"
+
+#: src/views/Contacts.vue:33
+msgid "Search contacts"
+msgstr "Rechercher des contacts"
+
+#: src/views/Contacts.vue:41
+msgid "Loading contacts..."
+msgstr "Chargement des contacts…"
+
+#: src/views/Contacts.vue:54
+msgid "No contacts found."
+msgstr "Aucun contact trouvé."
+
+#: src/views/Contacts.vue:118
+msgid "Select a contact to view details."
+msgstr "Sélectionnez un contact pour voir les détails."
+
+#: src/views/Settings.vue:8 src/views/Settings.vue:179
+msgid "Your settings could not be saved."
+msgstr "Vos paramètres n'ont pas pu être enregistrés."
+
+#: src/views/Settings.vue:44
+msgid "Connect your devices"
+msgstr "Connecter vos appareils"
+
+#: src/views/Settings.vue:46
+msgid ""
+"Sync your calendars and contacts with native apps on your phone or desktop "
+"using these addresses."
+msgstr ""
+"Synchronisez vos calendriers et contacts avec des applications natives sur "
+"votre téléphone ou votre ordinateur à l'aide de ces adresses."
+
+#: src/views/Settings.vue:55
+msgid "Status"
+msgstr "État"
+
+#: src/views/Settings.vue:119
+msgid "General"
+msgstr "Général"
+
+#: src/views/Settings.vue:127
+msgid "Data"
+msgstr "Données"
+
+#: src/views/Settings.vue:129
+msgid "Devices"
+msgstr "Appareils"
+
+#: src/views/Settings.vue:131
+msgid "About"
+msgstr "À propos"
+
+#: src/views/Tasks.vue:11
+msgid "Filter"
+msgstr "Filtre"
+
+#: src/views/Tasks.vue:47
+msgid "Add a task…"
+msgstr "Ajouter une tâche…"
+
+#: src/views/Tasks.vue:71
+msgid "Loading tasks..."
+msgstr "Chargement des tâches…"
+
+#: src/views/Tasks.vue:92
+msgid "No calendar accepts tasks."
+msgstr "Aucun calendrier n'accepte les tâches."
+
+#: src/views/Tasks.vue:99
+msgid "No completed tasks."
+msgstr "Aucune tâche terminée."
+
+#: src/views/Tasks.vue:99
+msgid "No open tasks."
+msgstr "Aucune tâche ouverte."
+
+#: src/views/Tasks.vue:128
+msgid "Reopen task"
+msgstr "Rouvrir la tâche"
+
+#: src/views/Tasks.vue:128
+msgid "Complete task"
+msgstr "Terminer la tâche"
+
+#: src/views/Tasks.vue:144
+msgid "Overdue"
+msgstr "En retard"
